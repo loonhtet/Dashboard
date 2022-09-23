@@ -37,3 +37,17 @@ function searchfn() {
     searchInput.focus();
   }
 }
+
+const darkLightToggle = document.getElementById("darklighttoggle");
+
+darkLightToggle.addEventListener("click", switchtoggle);
+
+function switchtoggle() {
+  if ((darkLightToggle.classList.contains = "ri-sun-line")) {
+    darkLightToggle.classList.remove = "ri-sun-line";
+    darkLightToggle.classList.add = "ri-moon-line";
+  } else {
+    darkLightToggle.classList.remove = "ri-moon-line";
+    darkLightToggle.classList.add = "ri-sun-line";
+  }
+}

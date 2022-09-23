@@ -43,7 +43,7 @@
     <!-- End Modal Area  -->
 
     <!-- Start navbar   -->
-    <div id="navbar" class="container-fluid">
+    <div id="navbar" class="container-fluid bg-light">
       <nav class="navbar navbar-expand">
         <a href="index.html" class="navbar-brand d-inline d-md-none"
           ><i class="ri-dashboard-fill"></i
@@ -51,14 +51,19 @@
         <a href="index.html" class="navbar-brand d-none d-md-inline"
           >Dashboard</a
         >
-        <button type="button" id="dis" class="ms-0 ms-lg-5 menucss">
-          <!-- data-bs-toggle="modal"
-            data-bs-target="#modalbox1"
-            aria-hidden="true" -->
+        <button
+          type="button"
+          id="dis"
+          class="ms-0 ms-lg-5 menucss"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapse1"
+          aria-expanded="false"
+          aria-controls="collapse1"
+        >
           <i class="ri-menu-line"></i>
         </button>
 
-        <div class="ms-auto inputboxcss">
+        <div class="ms-5 mb-1 inputboxcss">
           <input
             id="searchinput"
             class="searchinputcss"
@@ -83,9 +88,9 @@
               <img
                 src="./assets/img/profile.png"
                 alt=""
-                class="profilepiccss"
+                class="mb-1 profilepiccss"
               />
-              <i class="ri-arrow-drop-down-line"></i>
+              <i class="ri-arrow-drop-down-line mb-1"></i>
             </button>
 
             <ul
@@ -94,7 +99,7 @@
               aria-labelledby="dropdownmenu1"
             >
               <li>
-                <a id="username" href="" class="dropdown-item"
+                <a id="username" href="" class="dropdown-item text-center mb-2"
                   >Kevin Anderson</a
                 >
               </li>
@@ -135,6 +140,81 @@
     </div>
     <!-- End navbar  -->
 
+    <header class="d-flex">
+      <!-- Start pannel Section  -->
+      <section class="">
+        <div id="collapse1" class="collapse-horizontal">
+          <ul
+            class="card card-body list-unstyled border-0 gap-4"
+            style="width: 250px; height: 100vh; background-color: #f8f9fa"
+          >
+            <li class="">
+              <button class="dropdown-item">
+                Dashboard <i class="ri-home-line ms-2"></i>
+              </button>
+            </li>
+            <li>
+              <button class="dropdown-item">
+                Form Elements <i class="ri-list-check ms-2"></i>
+              </button>
+            </li>
+            <li>
+              <button class="dropdown-item">
+                Tables <i class="ri-table-2 ms-2"></i>
+              </button>
+            </li>
+            <li>
+              <button class="dropdown-item">
+                Icons <i class="ri-apps-line ms-2"></i>
+              </button>
+            </li>
+            <li>
+              <button class="dropdown-item">
+                Charts <i class="ri-line-chart-line ms-2"></i>
+              </button>
+            </li>
+            <li>
+              <button class="dropdown-item">
+                User Pages <i class="ri-pages-line ms-2"></i>
+              </button>
+            </li>
+            <li>
+              <button class="dropdown-item">
+                Error Pages <i class="ri-shield-line ms-2"></i>
+              </button>
+            </li>
+            <li>
+              <button class="dropdown-item">
+                General Pages <i class="ri-medicine-bottle-line ms-2"></i>
+              </button>
+            </li>
+            <li>
+              <button class="dropdown-item">
+                Documation <i class="ri-file-text-line ms-2"></i>
+              </button>
+            </li>
+          </ul>
+        </div>
+      </section>
+      <!-- End pannel Section  -->
+
+      <!-- Start Dashboard Area -->
+      <section class="container my-5 dashboardcss">
+        <div
+          class="d-flex justify-content-between"
+          style="border-bottom: 1px solid black"
+        >
+          <h5 class="d-flex align-items-center">
+            Dashboard <i class="ri-home-line ms-2"></i>
+          </h5>
+
+          <button class="darklighttoggle">
+            <i id="darklighttoggle" class="ri-sun-line"></i>
+          </button>
+        </div>
+      </section>
+      <!-- End Dashboard Area -->
+    </header>
     <!-- Bootstrap js -->
     <script
       src="/assets/bootstrap-5.1.3-dist/js/bootstrap.min.js"

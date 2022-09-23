@@ -7,6 +7,10 @@
   font-family: "Comfortaa", cursive;
 }
 
+::-webkit-scrollbar {
+  width: 0;
+}
+
 /* Start Modal Area  */
 
 /* End Modal Area  */
@@ -14,6 +18,7 @@
 /* Start navbar  */
 
 #navbar {
+  align-items: center;
   box-shadow: 0 5px 10px rgb(238, 238, 238);
   position: relative;
 }
@@ -54,7 +59,6 @@
 }
 
 .inputboxcss #searchbtn {
-  font-size: 25px;
   cursor: pointer;
 }
 
@@ -77,9 +81,24 @@
 }
 
 .profilepiccss {
-  width: 30px;
-  height: 30px;
+  width: 24px;
+  height: 24px;
+  border: 1px solid var(--bs-primary);
   border-radius: 50px;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-item:hover {
+  color: var(--bs-primary);
+  background: none;
+}
+
+.dropdown-item:focus {
+  background: none;
 }
 
 @media (max-width: 768px) {
@@ -91,6 +110,36 @@
 .notiiconcss {
   color: var(--bs-dark);
   text-decoration: none;
+
+  position: relative;
 }
 
+/* .notiiconcss::before {
+  content: "1";
+  font-size: 2px;
+
+  width: 50%;
+  height: 50%;
+  background-color: var(--bs-danger);
+
+  position: absolute;
+  top: -5px;
+  right: 0;
+
+  border-radius: 50%;
+} */
+
 /* End navbar  */
+
+/* Start Dashboard Area  */
+
+body {
+  background-color: var(--bs-light);
+}
+
+.darklighttoggle {
+  border: none;
+  background: none;
+}
+
+/* End Dashboard Area  */
