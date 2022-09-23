@@ -20,7 +20,25 @@
     <link rel="stylesheet" href="./css/style.css" type="text/css" />
   </head>
   <body>
-    <!-- Start navbar  -->
+    <!-- Start Modal Area  -->
+    <div class="modalcss">
+      <div class="modalcontentcss">
+        <h1 class="modalheadercss">Sign In</h1>
+        <div>
+          <input type="text" id="username" class="username" />
+          <input type="password" id="password" class="password" />
+        </div>
+
+        <div>
+          <button type="submit" class="btn btn-primary rounded-0">
+            Sign In
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- End Modal Area  -->
+
+    <!-- Start navbar   -->
     <div id="navbar" class="container-fluid fixed-top">
       <nav class="navbar navbar-expand">
         <a
@@ -35,21 +53,22 @@
           </span>
         </a>
 
-        <div class="ms-auto">
+        <div class="ms-auto inputboxcss">
           <input type="text" placeholder="Search" />
           <i class="ri-search-line"></i>
         </div>
 
         <ul class="navbar-nav ms-auto">
-          <div class="dropdown">
+          <div class="dropdown profilecss">
             <button
               type="button"
-              class="dropdown-toggle"
+              class=""
               id="dropdownmenu1"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
               Name
+              <i class="ri-arrow-drop-down-line"></i>
             </button>
 
             <ul class="dropdown-menu" aria-labelledby="dropdownmenu1">
@@ -77,10 +96,14 @@
             </ul>
           </div>
           <li>
-            <a href=""><i class="ri-notification-line mx-3"></i></a>
+            <a href="" class="notiiconcss"
+              ><i class="ri-notification-line mx-3"></i
+            ></a>
           </li>
           <li>
-            <a href=""><i class="ri-chat-3-line me-5"></i></a>
+            <a href="" class="notiiconcss"
+              ><i class="ri-chat-3-line me-5"></i
+            ></a>
           </li>
         </ul>
       </nav>

@@ -1,9 +1,37 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;400;700&display=swap"); /* Poppin font  */
 
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;700&display=swap"); /* Comfortaa font*/
+
 * {
   font-family: "Poppins", sans-serif;
+  font-family: "Comfortaa", cursive;
 }
+
+/* Start navbar  */
 
 #navbar {
   box-shadow: 0 5px 10px rgb(238, 238, 238);
 }
+
+.inputboxcss {
+  border-bottom: 1px solid var(--bs-primary);
+  padding: 1px 10px;
+}
+
+.inputboxcss input {
+  border: none;
+  outline: none;
+}
+
+.profilecss button {
+  display: flex;
+  align-items: center;
+  border: none;
+  background: none;
+}
+
+.notiiconcss {
+  text-decoration: none;
+}
+
+/* End navbar  */
