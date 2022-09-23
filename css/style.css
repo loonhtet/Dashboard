@@ -7,20 +7,42 @@
   font-family: "Comfortaa", cursive;
 }
 
+/* Start Modal Area  */
+
+/* End Modal Area  */
+
 /* Start navbar  */
 
 #navbar {
   box-shadow: 0 5px 10px rgb(238, 238, 238);
+  position: relative;
+}
+
+.menucss {
+  background: none;
+  border: none;
+}
+
+.menucss:focus {
+  box-shadow: none;
 }
 
 .inputboxcss {
-  border-bottom: 1px solid var(--bs-primary);
   padding: 1px 10px;
 }
 
-.inputboxcss input {
+.inputboxcss .searchinputcss {
+  width: 0;
   border: none;
   outline: none;
+}
+
+.inputboxcss .searchinputcss.active {
+  width: auto;
+}
+
+.inputboxcss i {
+  cursor: pointer;
 }
 
 .profilecss button {

@@ -21,21 +21,23 @@
   </head>
   <body>
     <!-- Start Modal Area  -->
-    <div class="modalcss">
-      <div class="modalcontentcss">
-        <h1 class="modalheadercss">Sign In</h1>
-        <div>
-          <input type="text" id="username" class="username" />
-          <input type="password" id="password" class="password" />
-        </div>
+    <!-- <div id="modalbox1" class="modal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modalcontent">
+          <h1 class="modalheader">Sign In</h1>
+          <div class="modalbody">
+            <input type="text" id="username" class="username" />
+            <input type="password" id="password" class="password" />
+          </div>
 
-        <div>
-          <button type="submit" class="btn btn-primary rounded-0">
-            Sign In
-          </button>
+          <div class="modalfooter">
+            <button type="submit" class="btn btn-primary rounded-0">
+              Sign In
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- End Modal Area  -->
 
     <!-- Start navbar   -->
@@ -46,16 +48,23 @@
           class="navbar-brand d-flex align-items-center ms-5"
         >
           <i class="ri-remixicon-fill h2 me-1"></i>
-          <h1 class="h4 me-5">NiceAdmin</h1>
-
-          <span class="ms-5">
-            <i class="ri-menu-line"></i>
-          </span>
+          <h1 class="d-none d-lg-block h4 me-0 me-lg-5">NiceAdmin</h1>
         </a>
+        <button type="button" class="btn ms-0 ms-lg-5 menucss">
+          <!-- data-bs-toggle="modal"
+            data-bs-target="#modalbox1"
+            aria-hidden="true" -->
+          <i class="ri-menu-line"></i>
+        </button>
 
         <div class="ms-auto inputboxcss">
-          <input type="text" placeholder="Search" />
-          <i class="ri-search-line"></i>
+          <input
+            id="searchinput"
+            class="searchinputcss"
+            type="text"
+            placeholder="Search"
+          />
+          <i id="searchbtn" class="ri-search-line dropdown"></i>
         </div>
 
         <ul class="navbar-nav ms-auto">
