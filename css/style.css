@@ -28,12 +28,14 @@
 }
 
 .inputboxcss {
+  display: flex;
+  align-items: center;
   padding: 1px 10px;
 }
 
 .inputboxcss .searchinputcss {
   width: 0;
-  display: none;
+  transform: scale(0);
   pointer-events: none;
   border: none;
   outline: none;
@@ -41,7 +43,7 @@
 
 .inputboxcss .searchinputcss.active {
   width: auto;
-  display: inline;
+  transform: scale(1);
   pointer-events: all;
 }
 
@@ -51,8 +53,20 @@
   }
 }
 
-.inputboxcss i {
+.inputboxcss #searchbtn {
+  font-size: 25px;
   cursor: pointer;
+}
+
+#username {
+  color: var(--bs-dark);
+  text-decoration: none;
+  padding: 0 20px;
+}
+
+#username:hover {
+  cursor: default;
+  background: none;
 }
 
 .profilecss button {
@@ -68,12 +82,14 @@
   border-radius: 50px;
 }
 
-#dropdown-menu {
-  top: 50px;
-  left: -150px;
+@media (max-width: 768px) {
+  #dropdown-menu {
+    left: -120px;
+  }
 }
 
 .notiiconcss {
+  color: var(--bs-dark);
   text-decoration: none;
 }
 

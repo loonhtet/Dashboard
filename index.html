@@ -43,13 +43,15 @@
     <!-- End Modal Area  -->
 
     <!-- Start navbar   -->
-    <div id="navbar" class="container-fluid fixed-top">
+    <div id="navbar" class="container-fluid">
       <nav class="navbar navbar-expand">
-        <a href="index.html" class="navbar-brand d-flex align-items-center">
-          <i class="ri-remixicon-fill h2 me-1"></i>
-          <h1 class="d-none d-lg-block h4 me-0 me-lg-5">NiceAdmin</h1>
-        </a>
-        <button type="button" id="dis" class="btn ms-0 ms-lg-5 menucss">
+        <a href="index.html" class="navbar-brand d-inline d-md-none"
+          ><i class="ri-dashboard-fill"></i
+        ></a>
+        <a href="index.html" class="navbar-brand d-none d-md-inline"
+          >Dashboard</a
+        >
+        <button type="button" id="dis" class="ms-0 ms-lg-5 menucss">
           <!-- data-bs-toggle="modal"
             data-bs-target="#modalbox1"
             aria-hidden="true" -->
@@ -61,7 +63,7 @@
             id="searchinput"
             class="searchinputcss"
             type="text"
-            placeholder="Search"
+            placeholder="Search..."
           />
           <i id="searchbtn" class="ri-search-line dropdown"></i>
         </div>
@@ -75,6 +77,9 @@
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
+              <a id="username" href="" class="d-none d-md-block"
+                >Kevin Anderson</a
+              >
               <img
                 src="./assets/img/profile.png"
                 alt=""
@@ -88,7 +93,11 @@
               class="dropdown-menu"
               aria-labelledby="dropdownmenu1"
             >
-              <li><a href="" class="dropdown-item">Kevin Anderson</a></li>
+              <li>
+                <a id="username" href="" class="dropdown-item"
+                  >Kevin Anderson</a
+                >
+              </li>
               <li>
                 <a href="" class="dropdown-item"
                   ><i class="ri-user-line"></i> My Profile</a
