@@ -18,6 +18,9 @@
   position: relative;
 }
 
+@media (max-width: 768px) {
+}
+
 .menucss {
   background: none;
   border: none;
@@ -33,12 +36,16 @@
 
 .inputboxcss .searchinputcss {
   width: 0;
+  display: none;
+  pointer-events: none;
   border: none;
   outline: none;
 }
 
 .inputboxcss .searchinputcss.active {
   width: auto;
+  display: inline;
+  pointer-events: all;
 }
 
 .inputboxcss i {
