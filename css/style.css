@@ -18,9 +18,6 @@
   position: relative;
 }
 
-@media (max-width: 768px) {
-}
-
 .menucss {
   background: none;
   border: none;
@@ -48,6 +45,12 @@
   pointer-events: all;
 }
 
+@media (max-width: 768px) {
+  .inputboxcss .searchinputcss.active {
+    width: 100px;
+  }
+}
+
 .inputboxcss i {
   cursor: pointer;
 }
@@ -65,13 +68,13 @@
   border-radius: 50px;
 }
 
-.notiiconcss {
-  text-decoration: none;
-}
-
 #dropdown-menu {
   top: 50px;
   left: -150px;
+}
+
+.notiiconcss {
+  text-decoration: none;
 }
 
 /* End navbar  */
