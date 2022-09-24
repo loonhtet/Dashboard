@@ -142,8 +142,8 @@
 
     <header class="d-flex">
       <!-- Start pannel Section  -->
-      <section class="">
-        <div id="collapse1" class="collapse-horizontal">
+      <section class="pannelcss">
+        <div id="collapse1" class="collapse-horizontal border-end">
           <ul
             class="card card-body list-unstyled border-0 gap-4"
             style="width: 250px; height: 100vh; background-color: #f8f9fa"
@@ -199,21 +199,34 @@
       <!-- End pannel Section  -->
 
       <!-- Start Dashboard Area -->
-      <section class="container my-5 dashboardcss">
-        <div
-          class="d-flex justify-content-between"
-          style="border-bottom: 1px solid black"
-        >
-          <h5 class="d-flex align-items-center">
-            Dashboard <i class="ri-home-line ms-2"></i>
-          </h5>
+      <main class="container">
+        <section class="my-5 dashboardcss">
+          <div
+            class="d-flex justify-content-between"
+            style="border-bottom: 1px solid black"
+          >
+            <h5 class="d-flex align-items-center">
+              Dashboard <i class="ri-home-line ms-2"></i>
+            </h5>
 
-          <button class="darklighttoggle">
-            <i id="darklighttoggle" class="ri-sun-line"></i>
-          </button>
-        </div>
-      </section>
-      <!-- End Dashboard Area -->
+            <button class="darklighttoggle">
+              <i id="darklighttoggle" class="ri-sun-line"></i>
+            </button>
+          </div>
+        </section>
+        <!-- End Dashboard Area -->
+
+        <!-- Start Card Area  -->
+
+        <section class="container">
+          <div class="row justify-content-between">
+            <div class="col-lg-4 col-sm-12 cardcss"></div>
+            <div class="col-lg-4 col-sm-12 cardcss"></div>
+            <div class="col-lg-4 col-sm-12 cardcss"></div>
+          </div>
+        </section>
+      </main>
+      <!-- End Card Area  -->
     </header>
     <!-- Bootstrap js -->
     <script

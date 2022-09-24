@@ -143,3 +143,24 @@ body {
 }
 
 /* End Dashboard Area  */
+
+/* Start Pannel Area  */
+
+@media (max-width: 768px) {
+  .pannelcss #collapse1 {
+    position: absolute;
+    z-index: 100;
+  }
+}
+
+/* End Pannel Area  */
+
+/* Start Card Area  */
+
+.cardcss {
+  width: 30%;
+  height: 300px;
+  border: 1px solid var(--bs-dark);
+}
+
+/* End Card Area  */
