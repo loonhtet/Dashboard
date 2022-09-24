@@ -107,8 +107,7 @@ function columnChart() {
 
   var options = {
     title: "Density of Precious Metals, in g/cm^3",
-    width: 750,
-    height: 350,
+
     backgroundColor: "#f8f9fa",
     bar: { groupWidth: "95%" },
     legend: { position: "none" },
