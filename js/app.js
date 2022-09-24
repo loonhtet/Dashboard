@@ -52,12 +52,12 @@ function switchtoggle() {
   }
 }
 
-// Start Google api donut chart
+// Start Donut chart
 
 google.charts.load("current", { packages: ["corechart"] });
 google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
-  var data = google.visualization.arrayToDataTable([
+  var dataDonut = google.visualization.arrayToDataTable([
     ["Task", "Hours per Day"],
     ["Search Engines", 30],
     ["Direct Click", 30],
@@ -69,7 +69,6 @@ function drawChart() {
     titleTextStyle: {
       fontSize: 24,
     },
-    width: 400,
     colors: ["#20c997", "#0d6efd", "#ffc107"],
     pieHole: 0.4,
     backgroundColor: "#f8f9fa",
@@ -80,7 +79,44 @@ function drawChart() {
   var chart = new google.visualization.PieChart(
     document.getElementById("donutchart")
   );
-  chart.draw(data, options);
+  chart.draw(dataDonut, options);
 }
 
-// End Google api donut chart
+// End Donut chart
+
+// Start Column chart
+
+google.charts.load("current", { packages: ["corechart"] });
+google.charts.setOnLoadCallback(columnChart);
+function columnChart() {
+  var dataColumn = google.visualization.arrayToDataTable([
+    ["Element", "Density", { role: "style" }],
+    ["Copper", 8.94, "#b87333"],
+    ["Silver", 10.49, "silver"],
+    ["Gold", 19.3, "gold"],
+    ["Platinum", 21.45, "color: #e5e4e2"],
+  ]);
+
+  var view = new google.visualization.DataView(dataColumn);
+  view.setColumns([
+    0,
+    1,
+    { calc: "stringify", sourceColumn: 1, type: "string", role: "annotation" },
+    2,
+  ]);
+
+  var options = {
+    title: "Density of Precious Metals, in g/cm^3",
+    width: 750,
+    height: 350,
+    backgroundColor: "#f8f9fa",
+    bar: { groupWidth: "95%" },
+    legend: { position: "none" },
+  };
+  var chart = new google.visualization.ColumnChart(
+    document.getElementById("columnchart_values")
+  );
+  chart.draw(view, options);
+}
+
+// End Column chart
