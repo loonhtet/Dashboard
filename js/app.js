@@ -51,3 +51,36 @@ function switchtoggle() {
     darkLightToggle.classList.add = "ri-sun-line";
   }
 }
+
+// Start Google api donut chart
+
+google.charts.load("current", { packages: ["corechart"] });
+google.charts.setOnLoadCallback(drawChart);
+function drawChart() {
+  var data = google.visualization.arrayToDataTable([
+    ["Task", "Hours per Day"],
+    ["Search Engines", 30],
+    ["Direct Click", 30],
+    ["Bookmarts Click", 40],
+  ]);
+
+  var options = {
+    title: "Traffic Sources",
+    titleTextStyle: {
+      fontSize: 24,
+    },
+    width: 400,
+    colors: ["#20c997", "#0d6efd", "#ffc107"],
+    pieHole: 0.4,
+    backgroundColor: "#f8f9fa",
+    pieHole: 0.4,
+    pieSliceText: "none",
+  };
+
+  var chart = new google.visualization.PieChart(
+    document.getElementById("donutchart")
+  );
+  chart.draw(data, options);
+}
+
+// End Google api donut chart

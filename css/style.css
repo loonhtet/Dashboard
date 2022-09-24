@@ -148,7 +148,7 @@ body {
 
 @media (max-width: 768px) {
   .pannelcss #collapse1 {
-    position: fixed;
+    position: absolute;
     z-index: 100;
   }
 }
@@ -160,7 +160,13 @@ body {
 .cardcss {
   width: 30%;
   height: 300px;
+  display: grid;
+  place-items: center;
   border: 1px solid var(--bs-dark);
+}
+
+.cardcss div {
+  width: 90%;
 }
 
 @media (max-width: 768px) {
@@ -171,3 +177,7 @@ body {
 }
 
 /* End Card Area  */
+
+/* Start Google api donut chart  */
+
+/* End Google api donut chart  */

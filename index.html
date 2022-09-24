@@ -48,7 +48,7 @@
         <a href="index.html" class="navbar-brand d-inline d-md-none"
           ><i class="ri-dashboard-fill"></i
         ></a>
-        <a href="index.html" class="navbar-brand d-none d-md-inline"
+        <a href="index.html" class="navbar-brand text-dark d-none d-md-inline"
           >Dashboard</a
         >
         <button
@@ -220,9 +220,52 @@
 
         <section class="container">
           <div class="row justify-content-between">
-            <div class="col-lg-4 col-sm-12 cardcss"></div>
-            <div class="col-lg-4 col-sm-12 cardcss"></div>
-            <div class="col-lg-4 col-sm-12 cardcss"></div>
+            <div class="col-lg-4 col-sm-12 cardcss">
+              <div>
+                <p class="d-flex justify-content-between align-items-center">
+                  <span>Weekly Sales</span>
+                  <i class="ri-line-chart-line ms-2"></i>
+                </p>
+
+                <h4>$ 15,00000</h4>
+
+                <p class="mt-5">increased by 60%</p>
+              </div>
+            </div>
+            <div class="col-lg-4 col-sm-12 cardcss">
+              <div>
+                <p class="d-flex justify-content-between align-items-center">
+                  <span>Weekly Orders</span>
+                  <i class="ri-bookmark-line"></i>
+                </p>
+
+                <h4>53,2389</h4>
+
+                <p class="mt-5">Decreased by 10%</p>
+              </div>
+            </div>
+            <div class="col-lg-4 col-sm-12 cardcss">
+              <div>
+                <p class="d-flex justify-content-between align-items-center">
+                  <span>Visitors Online</span>
+                  <i class="ri-vip-diamond-line"></i>
+                </p>
+
+                <h4>95,2145</h4>
+
+                <p class="mt-5">increased by 5%</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div class="col-lg-4 col-sm-12">
+            <div
+              id="donutchart"
+              class="border border-dark"
+              style="width: 100%; height: 500px"
+            ></div>
           </div>
         </section>
       </main>
@@ -232,6 +275,12 @@
     <script
       src="/assets/bootstrap-5.1.3-dist/js/bootstrap.min.js"
       type="text/javascript"
+    ></script>
+
+    <!-- Google api donut chart  -->
+    <script
+      type="text/javascript"
+      src="https://www.gstatic.com/charts/loader.js"
     ></script>
 
     <!-- Custom js -->
