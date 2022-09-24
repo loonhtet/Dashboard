@@ -148,7 +148,7 @@ body {
 
 @media (max-width: 768px) {
   .pannelcss #collapse1 {
-    position: absolute;
+    position: fixed;
     z-index: 100;
   }
 }
@@ -161,6 +161,13 @@ body {
   width: 30%;
   height: 300px;
   border: 1px solid var(--bs-dark);
+}
+
+@media (max-width: 768px) {
+  .cardcss {
+    width: 100%;
+    margin-bottom: 20px;
+  }
 }
 
 /* End Card Area  */
