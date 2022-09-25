@@ -135,7 +135,18 @@
 /* Start Dashboard Area  */
 
 body {
+  background-color: #f4f4f4;
+}
+
+.boxshadowcss {
   background-color: var(--bs-light);
+  box-shadow: 0 5px 10px rgb(238, 238, 238);
+}
+
+.locationcss {
+  background: linear-gradient(to right, #614385, #516395);
+  color: transparent;
+  -webkit-background-clip: text;
 }
 
 .darklighttoggle {
@@ -161,9 +172,21 @@ body {
 .cardcss {
   width: 30%;
   height: 300px;
+  color: var(--bs-light);
   display: grid;
   place-items: center;
-  border: 1px solid var(--bs-dark);
+}
+
+.cardcss:nth-of-type(1) {
+  background: linear-gradient(to right, #2e3192, #14c9c9);
+}
+
+.cardcss:nth-of-type(2) {
+  background: linear-gradient(to right, #d4145a, #fbb03b);
+}
+
+.cardcss:nth-of-type(3) {
+  background: linear-gradient(to right, #11998e, #33d16f);
 }
 
 .cardcss div {

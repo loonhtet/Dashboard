@@ -141,10 +141,10 @@
     <header class="d-flex">
       <!-- Start pannel Section  -->
       <section class="pannelcss">
-        <div id="collapse1" class="collapse collapse-horizontal border-end">
+        <div id="collapse1" class="collapse collapse-horizontal">
           <ul
-            class="card card-body list-unstyled border-0 gap-4"
-            style="width: 250px; height: 100vh; background-color: #f8f9fa"
+            class="card card-body list-unstyled bg-light border-end border-bottom border-2 border-dark rounded-3 gap-4"
+            style="width: 250px; height: 100vh"
           >
             <li class="">
               <button class="dropdown-item">
@@ -203,7 +203,7 @@
             class="d-flex justify-content-between"
             style="border-bottom: 1px solid black"
           >
-            <h5 class="d-flex align-items-center">
+            <h5 class="d-flex align-items-center locationcss">
               Dashboard <i class="ri-home-line ms-2"></i>
             </h5>
 
@@ -218,7 +218,7 @@
 
         <section class="container">
           <div class="row justify-content-between">
-            <div class="col-lg-4 col-sm-12 cardcss">
+            <div class="col-lg-4 col-sm-12 rounded-3 cardcss">
               <div>
                 <p class="d-flex justify-content-between align-items-center">
                   <span>Weekly Sales</span>
@@ -230,7 +230,7 @@
                 <p class="mt-5">increased by 60%</p>
               </div>
             </div>
-            <div class="col-lg-4 col-sm-12 cardcss">
+            <div class="col-lg-4 col-sm-12 rounded-3 cardcss">
               <div>
                 <p class="d-flex justify-content-between align-items-center">
                   <span>Weekly Orders</span>
@@ -242,7 +242,7 @@
                 <p class="mt-5">Decreased by 10%</p>
               </div>
             </div>
-            <div class="col-lg-4 col-sm-12 cardcss">
+            <div class="col-lg-4 col-sm-12 rounded-3 cardcss">
               <div>
                 <p class="d-flex justify-content-between align-items-center">
                   <span>Visitors Online</span>
@@ -258,18 +258,18 @@
         </section>
 
         <section class="mt-0 mt-sm-5">
-          <div class="row justify-content-between">
+          <div class="row justify-content-between align-items-center">
             <div class="col-lg-7 col-sm-12" style="margin-bottom: 20px">
               <div
-                class="col-lg-8 col-sm-12 border border-dark"
+                class="col-lg-8 col-sm-12 p-2 rounded-3 boxshadowcss"
                 id="columnchart_values"
-                style="width: 100%; height: 400px"
+                style="width: 100%; height: 420px"
               ></div>
             </div>
-            <div class="col-lg-4 col-sm-12">
+            <div class="col-lg-4 col-sm-12 p-2 rounded-3 boxshadowcss">
               <canvas
                 id="myDonutChart"
-                class="border border-dark"
+                class="rounded-3"
                 height="400px"
               ></canvas>
             </div>
@@ -277,7 +277,7 @@
         </section>
 
         <!-- Start Best Selling Area  -->
-        <section class="border border-dark tablecss">
+        <section class="rounded-3 p-3 tablecss boxshadowcss">
           <table class="table">
             <thead class="">
               <tr>
@@ -294,7 +294,11 @@
                 <th scope="row">
                   <img src="./assets/img/nikeshoe.png" alt="" />
                 </th>
-                <td>Nike Sb Zoom Stefan Janoski Premium High Tape Men's</td>
+                <td>
+                  <a href="#"
+                    >Nike Sb Zoom Stefan Janoski Premium High Tape Men's</a
+                  >
+                </td>
                 <td>$120</td>
                 <td>1240</td>
                 <td>$5,828</td>
@@ -304,7 +308,7 @@
                 <th scope="row">
                   <img src="./assets/img/applewatch.png" alt="" />
                 </th>
-                <td>Apple Watch Series 8 Ultra Green</td>
+                <td><a href="#">Apple Watch Series 8 Ultra Green</a></td>
                 <td>$599</td>
                 <td>875</td>
                 <td>$4,508</td>
@@ -314,7 +318,7 @@
                 <th scope="row">
                   <img src="./assets/img/sonyheadphone.png" alt="" />
                 </th>
-                <td>Noice-Cancelling Headphone Sony</td>
+                <td><a href="#">Noice-Cancelling Headphone Sony</a></td>
                 <td>$599</td>
                 <td>621</td>
                 <td>$4,366</td>
@@ -324,7 +328,7 @@
                 <th scope="row">
                   <img src="./assets/img/iphone_14.png" alt="" />
                 </th>
-                <td>Iphone 14</td>
+                <td><a href="#">Iphone 14</a></td>
                 <td>$899</td>
                 <td>421</td>
                 <td>$2,016</td>
