@@ -52,44 +52,12 @@ function switchtoggle() {
   }
 }
 
-// Start Donut chart
+// Start Google chart
 
 google.charts.load("current", { packages: ["corechart"] });
 google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
-  var dataDonut = google.visualization.arrayToDataTable([
-    ["Task", "Hours per Day"],
-    ["Search Engines", 30],
-    ["Direct Click", 30],
-    ["Bookmarts Click", 40],
-  ]);
-
-  var options = {
-    title: "Traffic Sources",
-    titleTextStyle: {
-      fontSize: 24,
-    },
-    colors: ["#20c997", "#0d6efd", "#ffc107"],
-    pieHole: 0.4,
-    backgroundColor: "#f8f9fa",
-    pieHole: 0.4,
-    pieSliceText: "none",
-  };
-
-  var chart = new google.visualization.PieChart(
-    document.getElementById("donutchart")
-  );
-  chart.draw(dataDonut, options);
-}
-
-// End Donut chart
-
-// Start Column chart
-
-google.charts.load("current", { packages: ["corechart"] });
-google.charts.setOnLoadCallback(columnChart);
-function columnChart() {
-  var dataColumn = google.visualization.arrayToDataTable([
+  var data = google.visualization.arrayToDataTable([
     ["Element", "Density", { role: "style" }],
     ["Copper", 8.94, "#b87333"],
     ["Silver", 10.49, "silver"],
@@ -97,7 +65,7 @@ function columnChart() {
     ["Platinum", 21.45, "color: #e5e4e2"],
   ]);
 
-  var view = new google.visualization.DataView(dataColumn);
+  var view = new google.visualization.DataView(data);
   view.setColumns([
     0,
     1,
@@ -107,8 +75,8 @@ function columnChart() {
 
   var options = {
     title: "Density of Precious Metals, in g/cm^3",
-
-    backgroundColor: "#f8f9fa",
+    width: 600,
+    height: 400,
     bar: { groupWidth: "95%" },
     legend: { position: "none" },
   };
@@ -118,4 +86,28 @@ function columnChart() {
   chart.draw(view, options);
 }
 
-// End Column chart
+// End Google chart
+
+// Start Chartjs Area
+
+const ctdx = document.getElementById("myDonutChart").getContext("2d");
+const myDonutChart = new Chart(ctdx, {
+  type: "doughnut",
+  data: {
+    labels: ["Red", "Blue", "Yellow"],
+    datasets: [
+      {
+        label: "# of Votes",
+        data: [12, 19, 3],
+        backgroundColor: [
+          "rgba(255, 99, 132, 1)",
+          "rgba(54, 162, 235, 1)",
+          "rgba(255, 206, 86, 1)",
+        ],
+      },
+    ],
+  },
+  options: {},
+});
+
+// End Chartjs Area
