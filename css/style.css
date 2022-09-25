@@ -182,3 +182,16 @@ body {
 /* Start Donut chart  */
 
 /* End Donut chart  */
+
+/* Start Top Selling Area  */
+.tablecss {
+  margin-top: 20px;
+  overflow-x: scroll;
+}
+
+th img {
+  width: 30px;
+  height: 30px;
+}
+
+/* End Top Selling Area  */

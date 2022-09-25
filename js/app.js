@@ -59,10 +59,10 @@ google.charts.setOnLoadCallback(columnChart);
 function columnChart() {
   var dataColumn = google.visualization.arrayToDataTable([
     ["Element", "Density", { role: "style" }],
-    ["Copper", 8.94, "#b87333"],
-    ["Silver", 10.49, "silver"],
-    ["Gold", 19.3, "gold"],
-    ["Platinum", 21.45, "color: #e5e4e2"],
+    ["JAN", 8.94, "#06D6A0"],
+    ["FEB", 10.49, "#FFD166"],
+    ["MAR", 19.3, "#26547C"],
+    ["APRIL", 21.45, "color: #EF476F"],
   ]);
 
   var view = new google.visualization.DataView(dataColumn);
@@ -74,7 +74,7 @@ function columnChart() {
   ]);
 
   var options = {
-    title: "Density of Precious Metals, in g/cm^3",
+    title: "Visit And Sales Statistics",
 
     backgroundColor: "#f8f9fa",
     bar: { groupWidth: "95%" },
@@ -94,16 +94,12 @@ const ctdx = document.getElementById("myDonutChart").getContext("2d");
 const myDonutChart = new Chart(ctdx, {
   type: "doughnut",
   data: {
-    labels: ["Red", "Blue", "Yellow"],
+    labels: ["Search Engines", "Direct Click", "Bookmarks Click", "Email"],
     datasets: [
       {
         label: "# of Votes",
-        data: [12, 19, 3],
-        backgroundColor: [
-          "rgba(255, 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 206, 86, 1)",
-        ],
+        data: [12, 19, 3, 2],
+        backgroundColor: ["#06D6A0", "#FFD166", "#26547C", "#EF476F"],
       },
     ],
   },
