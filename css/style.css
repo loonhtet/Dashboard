@@ -11,6 +11,11 @@
   width: 0;
 }
 
+.boxshadowcss {
+  background-color: var(--bs-light);
+  box-shadow: 0 5px 10px rgb(238, 238, 238);
+}
+
 /* Start Modal Area  */
 
 /* End Modal Area  */
@@ -136,11 +141,6 @@
 
 body {
   background-color: #f4f4f4;
-}
-
-.boxshadowcss {
-  background-color: var(--bs-light);
-  box-shadow: 0 5px 10px rgb(238, 238, 238);
 }
 
 .locationcss {
@@ -279,3 +279,9 @@ tr td .topitemscss:hover {
 }
 
 /* End Recent Updates Area  */
+
+/* Start Footer Section  */
+
+.footercss span {
+  /* font-size: 14px; */
+}
