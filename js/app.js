@@ -53,13 +53,26 @@ menuBtn.addEventListener("click", () => {
 // Start Login Modal
 
 const loginModal = document.querySelector(".modalboxcss");
-const openLoginBtn = document.querySelector("#openloginmodal");
+const openLoginBtn = document.querySelectorAll("#openloginmodal");
 const closeLoginBtn = document.querySelector("#closeloginmodal");
 
-openLoginBtn.addEventListener("click", function () {
-  loginModal.style.display = "grid";
-  document.getElementsByTagName("body")[0].classList.add("modalboxscroll");
-});
+// openLoginBtn.forEach(function () {
+//   console.log(openLoginBtn);
+//   openLoginBtn.addEventListener("click", function () {
+//     loginModal.style.display = "grid";
+//     document.getElementsByTagName("body")[0].classList.add("modalboxscroll");
+//   });
+// });
+
+for (let i = 0; i < openLoginBtn.length; i++) {
+  console.log(openLoginBtn[i]);
+
+  console.log(openLoginBtn);
+  openLoginBtn[i].addEventListener("click", function () {
+    loginModal.style.display = "grid";
+    document.getElementsByTagName("body")[0].classList.add("modalboxscroll");
+  });
+}
 
 closeLoginBtn.addEventListener("click", function () {
   loginModal.style.display = "none";
