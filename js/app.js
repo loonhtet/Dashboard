@@ -112,30 +112,28 @@ const myDonutChart = new Chart(ctdx, {
 
 const ctlx = document.getElementById("myLinearChart").getContext("2d");
 
-// const DATA_COUNT = 7;
-// const NUMBER_CFG = { count: DATA_COUNT, min: 0, max: 100 };
-
-// const labels = Utils.months({ count: 7 });
-// const data = {
-//   labels: labels,
-// };
-
 const myLinearChart = new Chart(ctlx, {
   type: "line",
   data: {
     labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "July"],
     datasets: [
       {
-        label: "Dataset 1",
-        data: [10, 30, 50, 20, 25, 44, -10],
-        borderColor: ["#06D6A0", "#FFD166", "#26547C", "#EF476F"],
-        backgroundColor: ["#06D6A0", "#FFD166", "#26547C", "#EF476F"],
+        label: "Sales",
+        data: [10, 30, 25, 33, 25, 44, 10],
+        borderColor: ["#06D6A0"],
+        backgroundColor: ["#06D6A0"],
       },
       {
-        label: "Dataset 2",
-        data: [100, 33, 22, 19, 11, 49, 30],
-        borderColor: ["#06D6A0", "#FFD166", "#26547C", "#EF476F"],
-        backgroundColor: ["#06D6A0", "#FFD166", "#26547C", "#EF476F"],
+        label: "Revenue",
+        data: [30, 33, 22, 22, 20, 26, 30],
+        borderColor: ["#EF476F"],
+        backgroundColor: ["#EF476F"],
+      },
+      {
+        label: "Customers",
+        data: [20, 18, 28, 30, 26, 33, 20],
+        borderColor: ["#26547C"],
+        backgroundColor: ["#26547C"],
       },
     ],
   },
@@ -143,8 +141,7 @@ const myLinearChart = new Chart(ctlx, {
     responsive: true,
     plugins: {
       title: {
-        display: true,
-        text: "Min and Max Settings",
+        display: false,
       },
     },
     scales: {

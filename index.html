@@ -261,17 +261,13 @@
           <div class="row justify-content-between align-items-center">
             <div class="col-lg-7 col-sm-12" style="margin-bottom: 20px">
               <div
-                class="col-lg-8 col-sm-12 p-2 rounded-3 boxshadowcss"
+                class="col-lg-8 col-md-12 p-2 rounded-3 boxshadowcss"
                 id="columnchart_values"
                 style="width: 100%; height: 420px"
               ></div>
             </div>
-            <div class="col-lg-4 col-sm-12 p-2 rounded-3 boxshadowcss">
-              <canvas
-                id="myDonutChart"
-                class="rounded-3"
-                height="400px"
-              ></canvas>
+            <div class="col-lg-4 col-md-12 p-2 rounded-3 boxshadowcss">
+              <canvas id="myDonutChart" class="rounded-3"></canvas>
             </div>
           </div>
         </section>
@@ -279,6 +275,10 @@
         <!-- Start Best Selling Area  -->
         <section class="rounded-3 p-3 tablecss boxshadowcss">
           <table class="table">
+            <h6>
+              Top Selling
+              <span>| Today</span>
+            </h6>
             <thead class="">
               <tr>
                 <th scope="col">Preview</th>
@@ -295,7 +295,7 @@
                   <img src="./assets/img/nikeshoe.png" alt="" />
                 </th>
                 <td>
-                  <a href="#"
+                  <a href="#" class="topitemscss"
                     >Nike Sb Zoom Stefan Janoski Premium High Tape Men's</a
                   >
                 </td>
@@ -308,7 +308,11 @@
                 <th scope="row">
                   <img src="./assets/img/applewatch.png" alt="" />
                 </th>
-                <td><a href="#">Apple Watch Series 8 Ultra Green</a></td>
+                <td>
+                  <a href="#" class="topitemscss"
+                    >Apple Watch Series 8 Ultra Green</a
+                  >
+                </td>
                 <td>$599</td>
                 <td>875</td>
                 <td>$4,508</td>
@@ -318,7 +322,11 @@
                 <th scope="row">
                   <img src="./assets/img/sonyheadphone.png" alt="" />
                 </th>
-                <td><a href="#">Noice-Cancelling Headphone Sony</a></td>
+                <td>
+                  <a href="#" class="topitemscss"
+                    >Noice-Cancelling Headphone Sony</a
+                  >
+                </td>
                 <td>$599</td>
                 <td>621</td>
                 <td>$4,366</td>
@@ -328,7 +336,7 @@
                 <th scope="row">
                   <img src="./assets/img/iphone_14.png" alt="" />
                 </th>
-                <td><a href="#">Iphone 14</a></td>
+                <td><a href="#" class="topitemscss">Iphone 14</a></td>
                 <td>$899</td>
                 <td>421</td>
                 <td>$2,016</td>
@@ -344,12 +352,16 @@
           <div class="recentcss">
             <div class="row justify-content-between align-items-center">
               <!-- Start Linear Scale Chart -->
-              <div class="col-lg-6 col-sm-12 py-5 boxshadowcss">
+              <div class="col-lg-7 col-sm-12 py-5 boxshadowcss">
+                <h6>
+                  Recent Updates
+                  <span>| Today</span>
+                </h6>
                 <canvas id="myLinearChart" class="rounded-3"></canvas>
               </div>
               <!-- End Linear Scale Chart -->
 
-              <div class="col-lg-5 col-sm-12 boxshadowcss">
+              <div class="col-lg-4 col-sm-12 boxshadowcss updatecontainercss">
                 <div class="lead text-center pt-3">
                   <h6>
                     Recent Updates
@@ -387,6 +399,17 @@
                       <p class="lead">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
                         Accusamus voluptatum illum possimus molestias commodi?
+                      </p>
+                    </li>
+                    <li>
+                      <p class="lead">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                        Accusamus voluptatum.
+                      </p>
+                    </li>
+                    <li>
+                      <p class="lead">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
                       </p>
                     </li>
                   </ul>

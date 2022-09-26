@@ -217,12 +217,29 @@ th img {
   height: 30px;
 }
 
+tr td .topitemscss {
+  color: var(--bs-dark);
+  opacity: 0.5;
+  width: 50px;
+  overflow-x: scroll;
+}
+
+tr td .topitemscss:hover {
+  color: var(--bs-primary);
+  opacity: 1;
+}
+
 /* End Top Selling Area  */
 
 /* Start Recent Updates Area  */
 
 .recentcss {
   margin: 20px 0;
+}
+
+.updatecontainercss {
+  height: 520px;
+  overflow-x: scroll;
 }
 
 .updatescss li::marker {
@@ -247,6 +264,14 @@ th img {
 
 .updatescss li:nth-of-type(5)::marker {
   color: #9794a8;
+}
+
+.updatescss li:nth-of-type(6)::marker {
+  color: #1b998b;
+}
+
+.updatescss li:nth-of-type(7)::marker {
+  color: #ce796b;
 }
 
 .updatescss li p {
