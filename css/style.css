@@ -160,7 +160,7 @@ body {
 
 @media (max-width: 768px) {
   .pannelcss #collapse1 {
-    position: fixed;
+    position: absolute;
     z-index: 100;
   }
 }

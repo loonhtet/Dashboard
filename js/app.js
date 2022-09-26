@@ -107,3 +107,53 @@ const myDonutChart = new Chart(ctdx, {
 });
 
 // End Chartjs Area
+
+// Start Linear Scale Chart
+
+const ctlx = document.getElementById("myLinearChart").getContext("2d");
+
+// const DATA_COUNT = 7;
+// const NUMBER_CFG = { count: DATA_COUNT, min: 0, max: 100 };
+
+// const labels = Utils.months({ count: 7 });
+// const data = {
+//   labels: labels,
+// };
+
+const myLinearChart = new Chart(ctlx, {
+  type: "line",
+  data: {
+    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "July"],
+    datasets: [
+      {
+        label: "Dataset 1",
+        data: [10, 30, 50, 20, 25, 44, -10],
+        borderColor: ["#06D6A0", "#FFD166", "#26547C", "#EF476F"],
+        backgroundColor: ["#06D6A0", "#FFD166", "#26547C", "#EF476F"],
+      },
+      {
+        label: "Dataset 2",
+        data: [100, 33, 22, 19, 11, 49, 30],
+        borderColor: ["#06D6A0", "#FFD166", "#26547C", "#EF476F"],
+        backgroundColor: ["#06D6A0", "#FFD166", "#26547C", "#EF476F"],
+      },
+    ],
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      title: {
+        display: true,
+        text: "Min and Max Settings",
+      },
+    },
+    scales: {
+      y: {
+        min: 10,
+        max: 50,
+      },
+    },
+  },
+});
+
+// End Linear Scale Chart

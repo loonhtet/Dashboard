@@ -43,8 +43,8 @@
     <!-- End Modal Area  -->
 
     <!-- Start navbar   -->
-    <div id="navbar" class="container-fluid bg-light">
-      <nav class="navbar navbar-expand">
+    <div id="navbar" class="container-fluid">
+      <nav class="navbar navbar-expand bg-light">
         <a href="index.html" class="navbar-brand d-inline d-md-none"
           ><i class="ri-dashboard-fill"></i
         ></a>
@@ -339,11 +339,17 @@
 
         <!-- End Best Selling Area  -->
 
-        <section>
+        <section class="container-fluid">
           <!-- Start Recent Updates Area  -->
-          <div class="recentcss boxshadowcss">
-            <div class="row">
-              <div class="col-lg-5 col-sm-12">
+          <div class="recentcss">
+            <div class="row justify-content-between align-items-center">
+              <!-- Start Linear Scale Chart -->
+              <div class="col-lg-6 col-sm-12 py-5 boxshadowcss">
+                <canvas id="myLinearChart" class="rounded-3"></canvas>
+              </div>
+              <!-- End Linear Scale Chart -->
+
+              <div class="col-lg-5 col-sm-12 boxshadowcss">
                 <div class="lead text-center pt-3">
                   <h6>
                     Recent Updates
