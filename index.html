@@ -21,26 +21,20 @@
     <!-- Custom css -->
     <link rel="stylesheet" href="./css/style.css" type="text/css" />
   </head>
-  <body>
-    <!-- Start Modal Area  -->
-    <!-- <div id="modalbox1" class="modal" tabindex="-1">
-      <div class="modal-dialog">
-        <div class="modalcontent">
-          <h1 class="modalheader">Sign In</h1>
-          <div class="modalbody">
-            <input type="text" id="username" class="username" />
-            <input type="password" id="password" class="password" />
-          </div>
+  <body class="">
+    <!-- Start Login Modal Area  -->
 
-          <div class="modalfooter">
-            <button type="submit" class="btn btn-primary rounded-0">
-              Sign In
-            </button>
-          </div>
-        </div>
+    <section class="modalboxcss">
+      <div class="col-lg-6 col-sm-11 p-4">
+        <i id="closeloginmodal" class="ri-close-circle-line"></i>
+        <h5 class="text-center">Type Your Nickname...</h5>
+        <input type="text" />
+
+        <p>This is Just For Funny <i class="ri-emotion-happy-line"></i></p>
       </div>
-    </div> -->
-    <!-- End Modal Area  -->
+    </section>
+
+    <!-- End Login Modal Area  -->
 
     <!-- Start navbar   -->
     <div id="navbar" class="container-fluid">
@@ -74,7 +68,12 @@
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              <a id="username" href="" class="d-none d-md-block">Log in</a>
+              <a
+                href=""
+                id="openloginmodal"
+                class="dropdown-item d-none d-md-block"
+                >Log in</a
+              >
               <img
                 src="./assets/img/man.png"
                 alt=""
@@ -85,32 +84,35 @@
 
             <ul
               id="dropdown-menu"
-              class="dropdown-menu"
+              class="dropdown-menu bg-light"
               aria-labelledby="dropdownmenu1"
             >
               <li>
-                <a id="username" href="" class="dropdown-item text-center mb-2"
+                <a
+                  id="username"
+                  href=""
+                  class="dropdown-item border-bottom text-center mb-2"
                   >Kevin Anderson</a
                 >
               </li>
               <li>
                 <a href="" class="dropdown-item"
-                  ><i class="ri-user-line"></i> My Profile</a
+                  ><i class="ri-user-line me-1"></i> My Profile</a
                 >
               </li>
               <li>
                 <a href="" class="dropdown-item"
-                  ><i class="ri-settings-line"></i> Account Settings</a
+                  ><i class="ri-settings-line me-1"></i> Account Settings</a
                 >
               </li>
               <li>
                 <a href="" class="dropdown-item"
-                  ><i class="ri-question-line"></i> Need help?</a
+                  ><i class="ri-question-line me-1"></i> Need help?</a
                 >
               </li>
               <li>
                 <a href="" class="dropdown-item"
-                  ><i class="ri-logout-circle-r-line"></i> Sign Out</a
+                  ><i class="ri-logout-circle-r-line me-1"></i> Sign Out</a
                 >
               </li>
             </ul>
@@ -195,7 +197,7 @@
             class="d-flex justify-content-between"
             style="border-bottom: 1px solid black"
           >
-            <h5 class="d-flex align-items-center text-primary">
+            <h5 class="d-flex align-items-center text-primary locationcss">
               Dashboard <i class="ri-home-line ms-2"></i>
             </h5>
 
@@ -219,7 +221,7 @@
 
                 <h4>$ 15,00000</h4>
 
-                <p class="mt-5">Increased by 60%</p>
+                <article class="mt-5">Increased by 60%</article>
               </div>
             </div>
             <div class="col-lg-4 col-sm-12 rounded-3 cardcss boxshadowcss">
@@ -231,7 +233,7 @@
 
                 <h4>53,2389</h4>
 
-                <p class="mt-5">Decreased by 10%</p>
+                <article class="mt-5">Decreased by 10%</article>
               </div>
             </div>
             <div class="col-lg-4 col-sm-12 rounded-3 cardcss boxshadowcss">
@@ -243,7 +245,7 @@
 
                 <h4>95,2145</h4>
 
-                <p class="mt-5">Increased by 5%</p>
+                <article class="mt-5">Increased by 5%</article>
               </div>
             </div>
           </div>
@@ -262,7 +264,7 @@
           </div>
         </section>
 
-        <!-- Start Best Selling Area  -->
+        <!-- Start Top Selling Area  -->
         <section class="rounded-3 p-3 tablecss boxshadowcss">
           <table class="table">
             <h6>
@@ -335,7 +337,7 @@
           </table>
         </section>
 
-        <!-- End Best Selling Area  -->
+        <!-- End Top Selling Area  -->
 
         <section class="container-fluid">
           <!-- Start Recent Updates Area  -->
@@ -415,7 +417,11 @@
         <section
           class="container-fluid text-center py-4 fs-6 footercss boxshadowcss"
         >
-          <span class=""><span>2022</span> ©Copyright - Made by Loon Htet</span>
+          <span class=""
+            ><span>2022</span> © Copyright - This is a simple project for my
+            portfolio. If you like this, you can contact me.
+            <a href="#" class="nav-link d-inline">Contact</a></span
+          >
         </section>
         <!-- End Footer Section  -->
       </main>

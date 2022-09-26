@@ -50,6 +50,24 @@ menuBtn.addEventListener("click", () => {
 
 // End navpannel
 
+// Start Login Modal
+
+const loginModal = document.querySelector(".modalboxcss");
+const openLoginBtn = document.querySelector("#openloginmodal");
+const closeLoginBtn = document.querySelector("#closeloginmodal");
+
+openLoginBtn.addEventListener("click", function () {
+  loginModal.style.display = "grid";
+  document.getElementsByTagName("body")[0].classList.add("modalboxscroll");
+});
+
+closeLoginBtn.addEventListener("click", function () {
+  loginModal.style.display = "none";
+  document.getElementsByTagName("body")[0].classList.remove("modalboxscroll");
+});
+
+// End Login Modal
+
 // Start darklight toggle
 
 const darkLightToggle = document.getElementById("darklighttoggle");
@@ -76,27 +94,17 @@ const data = {
   labels: ["jan", "feb", "mar", "apr", "may", "jun", "jul"],
   datasets: [
     {
-      label: "My First Dataset",
+      label: "Visit And Sales Statistics",
       data: [65, 59, 80, 81, 56, 55, 40],
       backgroundColor: [
-        "rgba(255, 99, 132, 0.2)",
-        "rgba(255, 159, 64, 0.2)",
-        "rgba(255, 205, 86, 0.2)",
-        "rgba(75, 192, 192, 0.2)",
-        "rgba(54, 162, 235, 0.2)",
-        "rgba(153, 102, 255, 0.2)",
-        "rgba(201, 203, 207, 0.2)",
+        "rgba(255, 99, 132, 1)",
+        "rgba(255, 159, 64, 1)",
+        "rgba(255, 205, 86, 1)",
+        "rgba(75, 192, 192, 1)",
+        "rgba(54, 162, 235, 1)",
+        "rgba(153, 102, 255, 1)",
+        "rgba(201, 203, 207, 1)",
       ],
-      borderColor: [
-        "rgb(255, 99, 132)",
-        "rgb(255, 159, 64)",
-        "rgb(255, 205, 86)",
-        "rgb(75, 192, 192)",
-        "rgb(54, 162, 235)",
-        "rgb(153, 102, 255)",
-        "rgb(201, 203, 207)",
-      ],
-      borderWidth: 1,
     },
   ],
 };
@@ -127,8 +135,13 @@ const myDonutChart = new Chart(ctdx, {
     datasets: [
       {
         label: "# of Votes",
-        data: [12, 19, 3, 2],
-        backgroundColor: ["#06D6A0", "#FFD166", "#26547C", "#EF476F"],
+        data: [3000, 4000, 2000, 1000],
+        backgroundColor: [
+          "rgba(75, 192, 192, 1)",
+          "rgba(255, 205, 86, 1)",
+          "rgba(54, 162, 235, 1)",
+          "rgba(255, 99, 132, 1)",
+        ],
       },
     ],
   },
@@ -149,20 +162,20 @@ const myLinearChart = new Chart(ctlx, {
       {
         label: "Sales",
         data: [10, 30, 25, 33, 25, 44, 10],
-        borderColor: ["#06D6A0"],
-        backgroundColor: ["#06D6A0"],
+        borderColor: ["rgba(255, 99, 132, 1)"],
+        backgroundColor: ["rgba(255, 99, 132, 1)"],
       },
       {
         label: "Revenue",
         data: [30, 33, 22, 22, 20, 26, 30],
-        borderColor: ["#EF476F"],
-        backgroundColor: ["#EF476F"],
+        borderColor: ["rgba(75, 192, 192, 1)"],
+        backgroundColor: ["rgba(75, 192, 192, 1)"],
       },
       {
         label: "Customers",
         data: [20, 18, 28, 30, 26, 33, 20],
-        borderColor: ["#26547C"],
-        backgroundColor: ["#26547C"],
+        borderColor: ["rgba(54, 162, 235, 1)"],
+        backgroundColor: ["rgba(54, 162, 235, 1)"],
       },
     ],
   },
