@@ -204,6 +204,12 @@ body {
 
 /* Start Donut chart  */
 
+@media (max-width: 768px) {
+  .barchartcss {
+    margin-bottom: 20px;
+  }
+}
+
 /* End Donut chart  */
 
 /* Start Top Selling Area  */
@@ -238,8 +244,14 @@ tr td .topitemscss:hover {
 }
 
 .updatecontainercss {
-  height: 520px;
+  height: 550px;
   overflow-x: scroll;
+}
+
+@media (max-width: 768px) {
+  .updatecontainercss {
+    margin-top: 20px;
+  }
 }
 
 .updatescss li::marker {
@@ -283,5 +295,5 @@ tr td .topitemscss:hover {
 /* Start Footer Section  */
 
 .footercss span {
-  /* font-size: 14px; */
+  font-size: 14px;
 }

@@ -2,11 +2,11 @@ const searchInput = document.getElementById("searchinput");
 const searchBtn = document.getElementById("searchbtn");
 
 const disItems = document.querySelectorAll("#dis");
-console.log(disItems);
+// console.log(disItems);
 
 searchBtn.addEventListener("click", searchfn);
 
-console.log(searchInput.clientWidth);
+// console.log(searchInput.clientWidth);
 
 function searchfn() {
   if (searchInput.classList.contains("active")) {
@@ -68,41 +68,54 @@ function switchtoggle() {
 
 // End darklight toggle
 
-// Start Google chart
+// Start Bar Chart
 
-google.charts.load("current", { packages: ["corechart"] });
-google.charts.setOnLoadCallback(columnChart);
-function columnChart() {
-  var dataColumn = google.visualization.arrayToDataTable([
-    ["Element", "Density", { role: "style" }],
-    ["JAN", 8.94, "#06D6A0"],
-    ["FEB", 10.49, "#FFD166"],
-    ["MAR", 19.3, "#26547C"],
-    ["APRIL", 21.45, "color: #EF476F"],
-  ]);
+const ctbx = document.getElementById("myBarChart").getContext("2d");
 
-  var view = new google.visualization.DataView(dataColumn);
-  view.setColumns([
-    0,
-    1,
-    { calc: "stringify", sourceColumn: 1, type: "string", role: "annotation" },
-    2,
-  ]);
+const data = {
+  labels: ["jan", "feb", "mar", "apr", "may", "jun", "jul"],
+  datasets: [
+    {
+      label: "My First Dataset",
+      data: [65, 59, 80, 81, 56, 55, 40],
+      backgroundColor: [
+        "rgba(255, 99, 132, 0.2)",
+        "rgba(255, 159, 64, 0.2)",
+        "rgba(255, 205, 86, 0.2)",
+        "rgba(75, 192, 192, 0.2)",
+        "rgba(54, 162, 235, 0.2)",
+        "rgba(153, 102, 255, 0.2)",
+        "rgba(201, 203, 207, 0.2)",
+      ],
+      borderColor: [
+        "rgb(255, 99, 132)",
+        "rgb(255, 159, 64)",
+        "rgb(255, 205, 86)",
+        "rgb(75, 192, 192)",
+        "rgb(54, 162, 235)",
+        "rgb(153, 102, 255)",
+        "rgb(201, 203, 207)",
+      ],
+      borderWidth: 1,
+    },
+  ],
+};
 
-  var options = {
-    title: "Visit And Sales Statistics",
+const config = {
+  type: "bar",
+  data: data,
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
+  },
+};
 
-    backgroundColor: "#f8f9fa",
-    bar: { groupWidth: "95%" },
-    legend: { position: "none" },
-  };
-  var chart = new google.visualization.ColumnChart(
-    document.getElementById("columnchart_values")
-  );
-  chart.draw(view, options);
-}
+const myBarChart = new Chart(ctbx, config);
 
-// End Google chart
+// End Bar Chart
 
 // Start Chartjs Area
 
