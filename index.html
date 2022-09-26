@@ -44,22 +44,14 @@
 
     <!-- Start navbar   -->
     <div id="navbar" class="container-fluid">
-      <nav class="navbar navbar-expand bg-light">
+      <nav class="navbar navbar-expand fixed-top px-4 bg-light">
         <a href="index.html" class="navbar-brand d-inline d-md-none"
           ><i class="ri-dashboard-fill"></i
         ></a>
         <a href="index.html" class="navbar-brand text-dark d-none d-md-inline"
           >Admin</a
         >
-        <button
-          type="button"
-          id="dis"
-          class="ms-0 ms-lg-5 menucss"
-          data-bs-toggle="collapse"
-          data-bs-target="#collapse1"
-          aria-expanded="false"
-          aria-controls="collapse1"
-        >
+        <button type="button" id="dis" class="ms-0 ms-lg-5 menucss">
           <i class="ri-menu-line"></i>
         </button>
 
@@ -141,13 +133,13 @@
     <header class="d-flex">
       <!-- Start pannel Section  -->
       <section class="pannelcss">
-        <div id="collapse1" class="collapse collapse-horizontal">
+        <div class="">
           <ul
-            class="card card-body list-unstyled bg-light border-end border-bottom border-2 border-dark rounded-3 gap-4"
+            class="d-flex flex-column list-unstyled bg-light border-end border-bottom rounded-3 gap-4"
             style="width: 250px; height: 100vh"
           >
             <li class="">
-              <button class="dropdown-item">
+              <button class="dropdown-item mt-5 pt-5">
                 Dashboard <i class="ri-home-line ms-2"></i>
               </button>
             </li>
@@ -197,13 +189,13 @@
       <!-- End pannel Section  -->
 
       <!-- Start Dashboard Area -->
-      <main class="container">
+      <main class="container mt-5 py-5">
         <section class="my-5 dashboardcss">
           <div
             class="d-flex justify-content-between"
             style="border-bottom: 1px solid black"
           >
-            <h5 class="d-flex align-items-center locationcss">
+            <h5 class="d-flex align-items-center text-primary">
               Dashboard <i class="ri-home-line ms-2"></i>
             </h5>
 

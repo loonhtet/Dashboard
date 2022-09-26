@@ -38,6 +38,20 @@ function searchfn() {
   }
 }
 
+// Start navpannel
+
+const menuBtn = document.querySelector(".menucss");
+
+menuBtn.addEventListener("click", () => {
+  var navPannel = document.querySelector(".pannelcss");
+
+  navPannel.classList.toggle("activepannel");
+});
+
+// End navpannel
+
+// Start darklight toggle
+
 const darkLightToggle = document.getElementById("darklighttoggle");
 
 darkLightToggle.addEventListener("click", switchtoggle);
@@ -51,6 +65,8 @@ function switchtoggle() {
     darkLightToggle.classList.add = "ri-sun-line";
   }
 }
+
+// End darklight toggle
 
 // Start Google chart
 
