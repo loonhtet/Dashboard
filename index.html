@@ -28,7 +28,9 @@
       <div class="col-lg-6 col-sm-11 p-4">
         <i id="closeloginmodal" class="ri-close-circle-line"></i>
         <h5 class="text-center">Type Your Nickname...</h5>
-        <input type="text" />
+        <form action="" class="formbox">
+          <input id="username" type="text" />
+        </form>
 
         <p>This is Just For Funny <i class="ri-emotion-happy-line"></i></p>
       </div>
@@ -61,6 +63,11 @@
           </div>
 
           <ul class="navbar-nav d-flex align-items-center ms-auto">
+            <i
+              id="openloginmodal"
+              class="ri-login-circle-line dropdown-item align-items-center"
+            ></i>
+
             <div class="dropdown profilecss">
               <button
                 type="button"
@@ -69,17 +76,6 @@
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                <a
-                  href=""
-                  id="openloginmodal"
-                  class="dropdown-item d-none d-md-block"
-                  >Log in</a
-                >
-
-                <i
-                  id="openloginmodal"
-                  class="ri-login-circle-line dropdown-item d-block d-md-none mb-1"
-                ></i>
                 <img
                   src="./assets/img/man.png"
                   alt=""
@@ -95,7 +91,7 @@
               >
                 <li>
                   <a
-                    id="username "
+                    id="usernameshow"
                     href=""
                     class="dropdown-item border-bottom text-center mb-2 disabled"
                     >Anonymous</a

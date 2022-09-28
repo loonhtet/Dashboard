@@ -64,7 +64,7 @@ body.modalboxscroll {
 
 .modalboxcss div input {
   text-align: center;
-  color: var(--bs-light);
+  color: #fff;
   /* background: var(--bs-light); */
   background: none;
   border: none;

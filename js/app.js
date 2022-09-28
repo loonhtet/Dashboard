@@ -53,18 +53,16 @@ menuBtn.addEventListener("click", () => {
 // Start Login Modal
 
 const loginModal = document.querySelector(".modalboxcss");
-const openLoginBtn = document.querySelectorAll("#openloginmodal");
+const openLoginBtn = document.querySelector("#openloginmodal");
 const closeLoginBtn = document.querySelector("#closeloginmodal");
 
-for (let i = 0; i < openLoginBtn.length; i++) {
-  // console.log(openLoginBtn[i]);
+console.log(openLoginBtn);
 
-  // console.log(openLoginBtn);
-  openLoginBtn[i].addEventListener("click", function (e) {
-    loginModal.style.display = "grid";
-    document.getElementsByTagName("body")[0].classList.add("modalboxscroll");
-  });
-}
+openLoginBtn.addEventListener("click", function (e) {
+  e.preventDefault();
+  loginModal.style.display = "grid";
+  document.getElementsByTagName("body")[0].classList.add("modalboxscroll");
+});
 
 closeLoginBtn.addEventListener("click", function () {
   loginModal.style.display = "none";
@@ -72,6 +70,28 @@ closeLoginBtn.addEventListener("click", function () {
 });
 
 // End Login Modal
+
+// Start Username Area
+
+const getusername = document.querySelector("#username");
+
+const usernameShow = document.querySelector("#usernameshow");
+
+const form = document.querySelector(".formbox");
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+  usernameShow.innerHTML = "";
+  usernameShow.innerHTML = getusername.value;
+  openLoginBtn.classList.remove("ri-login-circle-line");
+  openLoginBtn.innerHTML = getusername.value;
+
+  usernameShow.classList.remove("disabled");
+
+  loginModal.style.display = "none";
+  document.getElementsByTagName("body")[0].classList.remove("modalboxscroll");
+});
+
+// End Username Area
 
 // Start darklight toggle
 
