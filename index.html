@@ -65,7 +65,7 @@
               <button
                 type="button"
                 class=""
-                id="dropdownmenu1"
+                id="dropdownmenu1 dropdownbtn"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
@@ -85,7 +85,7 @@
                   alt=""
                   class="mb-1 profilepiccss"
                 />
-                <i class="ri-arrow-drop-down-line mb-1"></i>
+                <i id="dropdownbtn" class="ri-arrow-drop-down-line mb-1"></i>
               </button>
 
               <ul
@@ -95,10 +95,10 @@
               >
                 <li>
                   <a
-                    id="username"
+                    id="username "
                     href=""
-                    class="dropdown-item border-bottom text-center mb-2"
-                    >Log in</a
+                    class="dropdown-item border-bottom text-center mb-2 disabled"
+                    >Anonymous</a
                   >
                 </li>
                 <li>
@@ -145,46 +145,48 @@
         <div class="">
           <ul
             class="d-flex flex-column list-unstyled bg-light border-end border-bottom rounded-3 gap-4"
-            style="width: 250px; height: 100vh"
+            style="width: 260px; height: 100vh"
           >
             <li class="">
               <button class="dropdown-item mt-5 pt-5">
-                Dashboard <i class="ri-home-line ms-2"></i>
+                <div>Dashboard <i class="ri-home-line ms-2"></i></div>
               </button>
             </li>
             <li>
               <button class="dropdown-item">
-                Form Elements <i class="ri-list-check ms-2"></i>
+                <div>Form Elements <i class="ri-list-check ms-2"></i></div>
               </button>
             </li>
             <li>
               <button class="dropdown-item">
-                Tables <i class="ri-table-2 ms-2"></i>
+                <div>Tables <i class="ri-table-2 ms-2"></i></div>
               </button>
             </li>
             <li>
               <button class="dropdown-item">
-                Icons <i class="ri-apps-line ms-2"></i>
+                <div>Icons <i class="ri-apps-line ms-2"></i></div>
               </button>
             </li>
             <li>
               <button class="dropdown-item">
-                Charts <i class="ri-line-chart-line ms-2"></i>
+                <div>Charts <i class="ri-line-chart-line ms-2"></i></div>
               </button>
             </li>
             <li>
               <button class="dropdown-item">
-                User Pages <i class="ri-pages-line ms-2"></i>
+                <div>User Pages <i class="ri-pages-line ms-2"></i></div>
               </button>
             </li>
             <li>
               <button class="dropdown-item">
-                Error Pages <i class="ri-shield-line ms-2"></i>
+                <div>Error Pages <i class="ri-shield-line ms-2"></i></div>
               </button>
             </li>
             <li>
               <button class="dropdown-item">
-                General Pages <i class="ri-medicine-bottle-line ms-2"></i>
+                <div>
+                  General Pages <i class="ri-medicine-bottle-line ms-2"></i>
+                </div>
               </button>
             </li>
             <li>
@@ -198,7 +200,7 @@
       <!-- End pannel Section  -->
 
       <!-- Start Dashboard Area -->
-      <main class="container mt-5 py-5">
+      <main class="container mt-5">
         <section class="my-5 dashboardcss">
           <div
             class="d-flex justify-content-between"
@@ -404,6 +406,11 @@
                       <p class="lead">
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
                         Accusamus voluptatum.
+                      </p>
+                    </li>
+                    <li>
+                      <p class="lead">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit.
                       </p>
                     </li>
                     <li>

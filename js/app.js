@@ -56,19 +56,11 @@ const loginModal = document.querySelector(".modalboxcss");
 const openLoginBtn = document.querySelectorAll("#openloginmodal");
 const closeLoginBtn = document.querySelector("#closeloginmodal");
 
-// openLoginBtn.forEach(function () {
-//   console.log(openLoginBtn);
-//   openLoginBtn.addEventListener("click", function () {
-//     loginModal.style.display = "grid";
-//     document.getElementsByTagName("body")[0].classList.add("modalboxscroll");
-//   });
-// });
-
 for (let i = 0; i < openLoginBtn.length; i++) {
-  console.log(openLoginBtn[i]);
+  // console.log(openLoginBtn[i]);
 
-  console.log(openLoginBtn);
-  openLoginBtn[i].addEventListener("click", function () {
+  // console.log(openLoginBtn);
+  openLoginBtn[i].addEventListener("click", function (e) {
     loginModal.style.display = "grid";
     document.getElementsByTagName("body")[0].classList.add("modalboxscroll");
   });
