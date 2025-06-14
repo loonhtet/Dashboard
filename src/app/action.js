@@ -3,7 +3,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import bcrypt from "bcrypt";
-import { prisma } from "@/lib/prisma";
+import prisma from "../../lib/prisma";
 
 export async function signOut() {
   const cookieStore = cookies();
