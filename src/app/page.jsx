@@ -1,10 +1,14 @@
 import WebLayout from "@/components/layouts/WebLayout";
-import Image from "next/image";
+import { getCurrentUser } from "./action";
 
-export default function Home() {
-    return (
-        <WebLayout>
-            <h1>Hello</h1>
-        </WebLayout>
-    );
+export default async function Home() {
+  const currentUser = await getCurrentUser();
+
+  return (
+    <WebLayout>
+      <h1 className="text-2xl">
+        Welcome, <span className="font-semibold">{currentUser.name}</span>
+      </h1>
+    </WebLayout>
+  );
 }

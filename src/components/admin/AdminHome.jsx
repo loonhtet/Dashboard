@@ -26,6 +26,8 @@ const AdminHome = ({ currentUser }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
+  const [deletingId, setDeletingId] = useState(null);
+
   const [searchQuery, setSearchQuery] = useState("");
 
   const [admins, setAdmins] = useState([]);
@@ -52,6 +54,8 @@ const AdminHome = ({ currentUser }) => {
       return;
     }
 
+    setDeletingId(id);
+
     try {
       await deleteAdmin(id, currentUser);
       fetchAdmins();
@@ -59,6 +63,8 @@ const AdminHome = ({ currentUser }) => {
     } catch (error) {
       console.error("Failed to delete admin:", error);
       toast.error("Failed to delete admin. Please try again.");
+    } finally {
+      setDeletingId(null);
     }
   };
 
@@ -157,9 +163,11 @@ const AdminHome = ({ currentUser }) => {
                         value={admin.id}
                         text={"Delete"}
                         variant={"destructive"}
+                        loading={deletingId === admin.id}
                       />
                     }
                   />
+
                   {/* End Delete Dialog */}
                 </TableCell>
               </TableRow>

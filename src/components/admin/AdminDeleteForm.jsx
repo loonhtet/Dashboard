@@ -13,6 +13,7 @@ const AdminDeleteForm = ({
   value,
   text,
   variant,
+  loading,
 }) => {
   return (
     <>
@@ -22,7 +23,8 @@ const AdminDeleteForm = ({
           <DialogDescription>{description}</DialogDescription>
           <form action={action} className="mt-4 text-right">
             <input type="hidden" name="id" value={value} />
-            <Button type="submit" variant={variant}>
+            <Button type="submit" variant={variant} disabled={loading}>
+              {loading && <Loader2 className="mr-2 animate-spin" />}
               {text}
             </Button>
           </form>

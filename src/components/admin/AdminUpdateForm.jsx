@@ -43,6 +43,7 @@ const AdminUpdateForm = ({
 
   const [open, setOpen] = useState(false);
   const [isSending, setIsSending] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isVerifying, setIsVerifying] = useState(false);
   const [submittedEmail, setSubmittedEmail] = useState("");
   const [adminFormData, setAdminFormData] = useState(null);
@@ -59,6 +60,7 @@ const AdminUpdateForm = ({
     setAdminFormData(payload);
 
     if (data.email === datas.email) {
+      setIsSubmitting(true);
       try {
         const res = await updateAdmin(payload);
         if (res.success) {
@@ -150,8 +152,10 @@ const AdminUpdateForm = ({
               }}
             />
             <div className="col-span-2 ms-auto">
-              <Button type="submit" disabled={isSending}>
-                {isSending && <Loader2 className="animate-spin" />}
+              <Button type="submit" disabled={isSending || isSubmitting}>
+                {(isSending || isSubmitting) && (
+                  <Loader2 className="mr-2 animate-spin" />
+                )}
                 Submit
               </Button>
             </div>
@@ -204,7 +208,7 @@ const AdminUpdateForm = ({
                 />
                 <Button type="submit" className="w-full" disabled={isVerifying}>
                   {isVerifying && <Loader2 className="animate-spin" />}
-                  Verify Account
+                  Verify
                 </Button>
               </form>
             </DialogContent>

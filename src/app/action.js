@@ -23,17 +23,18 @@ export async function getCurrentUser() {
 }
 
 export async function addAuditLog({
-  userId,
+  user_name,
+  user_email,
   actionType,
   targetType,
   targetId,
   description,
 }) {
   try {
-    console.log("Adding audit log:", userId);
     const createdLog = await prisma.audit_logs.create({
       data: {
-        user_id: userId,
+        user_name: user_name,
+        user_email: user_email,
         action_type: actionType,
         target_type: targetType,
         target_id: targetId,

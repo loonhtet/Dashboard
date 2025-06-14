@@ -191,7 +191,7 @@ export const NewAdminForm = ({ currentUser }) => {
 
             <Button type="submit" className="w-full" disabled={isVerifying}>
               {isVerifying && <Loader2 className="animate-spin" />}
-              Verify Account
+              Verify
             </Button>
           </form>
         </DialogContent>
