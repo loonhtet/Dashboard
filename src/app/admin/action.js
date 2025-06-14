@@ -1,6 +1,6 @@
 "use server";
 
-import prisma from "../../../lib/prisma";
+import { prisma } from "@/lib/prisma";
 import { addAuditLog } from "../action";
 
 export async function getAllAdmins(search) {
