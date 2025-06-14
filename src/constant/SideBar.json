@@ -1,0 +1,21 @@
+[
+  {
+    "title": "Home",
+    "url": "/",
+    "icon": "House"
+  },
+  {
+    "title": "Admin",
+    "collapsible": true,
+    "icon": "ShieldUser",
+    "children": [
+      { "title": "All Admin", "url": "/admin" },
+      { "title": "New Admin", "url": "/admin/new-admin" }
+    ]
+  },
+  {
+    "title": "Audit Log",
+    "url": "/audit-log",
+    "icon": "FileClock"
+  }
+]

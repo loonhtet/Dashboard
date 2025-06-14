@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model audit_logs {
+  id          String            @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  user_name   String            @db.VarChar
+  user_email  String            @db.VarChar
+  action_type action_type_enum?
+  target_type String?           @db.VarChar
+  target_id   String?           @db.Uuid
+  description String?
+  timestamp   DateTime?         @default(now()) @db.Timestamp(6)
+}
+
+model contents {
+  id          String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  title       String?   @db.VarChar
+  description String?
+  created_by  String?   @db.Uuid
+  created_at  DateTime? @default(now()) @db.Timestamp(6)
+  updated_at  DateTime? @default(now()) @db.Timestamp(6)
+  users       users?    @relation(fields: [created_by], references: [id], onUpdate: NoAction)
+}
+
+model users {
+  id                   String     @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name                 String?    @db.VarChar
+  password             String?    @db.VarChar
+  email                String?    @unique @db.VarChar
+  email_verified       Boolean?   @default(false)
+  verification_token   String?    @db.VarChar
+  verification_expires DateTime?  @db.Timestamp(6)
+  created_at           DateTime?  @default(now()) @db.Timestamp(6)
+  updated_at           DateTime?  @default(now()) @db.Timestamp(6)
+  contents             contents[]
+}
+
+model user_otps {
+  id         String    @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  user_email String    @db.VarChar
+  otp_code   String    @db.VarChar
+  expires_at DateTime  @db.Timestamp(6)
+  created_at DateTime? @default(now()) @db.Timestamp(6)
+
+  @@index([user_email], map: "idx_user_otps_user_email")
+}
+
+enum action_type_enum {
+  CREATE
+  UPDATE
+  DELETE
+}
