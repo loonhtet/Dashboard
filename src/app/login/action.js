@@ -28,11 +28,13 @@ export async function loginUser({ email, password }) {
         email: user.email,
         name: user.name,
         type: user.type,
+      }),
+      {
         path: "/",
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         maxAge: 60 * 60 * 24 * 7,
-      }),
+      },
     );
 
     return { success: true, message: "Login successful.", user };
