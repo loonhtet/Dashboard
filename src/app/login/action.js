@@ -1,8 +1,8 @@
 "use server";
 
+import { prisma } from "@/lib/prisma";
 import bcrypt from "bcrypt";
 import { cookies } from "next/headers";
-import prisma from "../../../lib/prisma";
 
 export async function loginUser({ email, password }) {
   try {

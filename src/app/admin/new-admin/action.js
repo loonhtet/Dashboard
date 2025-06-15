@@ -3,7 +3,7 @@
 import bcrypt from "bcrypt";
 import { sendVerificationEmail } from "@/lib/mail";
 import { addAuditLog } from "@/app/action";
-import prisma from "../../../../lib/prisma";
+import { prisma } from "@/lib/prisma";
 
 export async function createAdmin({
   name,
