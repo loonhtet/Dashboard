@@ -42,7 +42,7 @@ export async function loginUser({ email, password }) {
     console.error("Login Error:", error);
     return {
       success: false,
-      message: "Something went wrong. Please try again.",
+      message: "Something went wrong. Please try again later.",
     };
   }
 }
