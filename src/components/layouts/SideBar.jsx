@@ -33,6 +33,7 @@ import {
   ShieldUser,
   FileClock,
   Loader2,
+  MessageCircle,
 } from "lucide-react";
 
 const icons = {
@@ -42,6 +43,7 @@ const icons = {
   User2: User2,
   ChevronDown: ChevronDown,
   ChevronsUp: ChevronsUp,
+  MessageCircle: MessageCircle,
 };
 
 import Link from "next/link";
@@ -91,7 +93,7 @@ export function AppSidebar({ name }) {
                   <Collapsible key={item.title} className="group/collapsible">
                     <SidebarMenuItem>
                       <CollapsibleTrigger asChild>
-                        <SidebarMenuButton className="flex w-full items-center justify-between">
+                        <SidebarMenuButton className="flex w-full items-center justify-between px-3 py-5.5">
                           <div className="flex items-center gap-2">
                             {item.icon &&
                               (() => {
@@ -110,7 +112,7 @@ export function AppSidebar({ name }) {
                         <SidebarMenuSub>
                           {item.children?.map((sub) => (
                             <SidebarMenuSubItem key={sub.title} asChild>
-                              <SidebarMenuButton>
+                              <SidebarMenuButton className="px-3 py-5.5">
                                 <Link href={sub.url} className="w-full">
                                   {sub.title}
                                 </Link>
@@ -124,7 +126,10 @@ export function AppSidebar({ name }) {
                 ) : (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild>
-                      <Link href={item.url} className="flex items-center gap-2">
+                      <Link
+                        href={item.url}
+                        className="flex items-center gap-2 px-3 py-5.5"
+                      >
                         {item.icon &&
                           (() => {
                             const Icon = icons[item.icon];
