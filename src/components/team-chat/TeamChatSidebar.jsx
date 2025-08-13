@@ -36,7 +36,7 @@ export default function TeamChatSidebar({
       />
 
       <aside
-        className={`bg-base-100 bg-sidebar fixed top-0 left-0 z-50 flex h-full w-64 transform flex-col rounded-xl px-4 py-0 transition-transform ${
+        className={`bg-sidebar fixed top-0 left-0 z-50 flex h-full w-64 transform flex-col rounded-tr-xl border-t border-r py-0 ps-4 pr-4 transition-transform lg:bg-transparent lg:ps-0 ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } lg:static lg:flex-shrink-0 lg:translate-x-0`}
       >
