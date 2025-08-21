@@ -5,6 +5,29 @@
     "icon": "House"
   },
   {
+    "title": "Booking",
+    "url": "/",
+    "icon": "CalendarCheck2"
+  },
+  {
+    "title": "Blog",
+    "collapsible": true,
+    "icon": "FileText",
+    "children": [
+      { "title": "All Blog", "url": "/blog" },
+      { "title": "New Blog", "url": "/blog/new-blog" }
+    ]
+  },
+  {
+    "title": "Category",
+    "collapsible": true,
+    "icon": "Layers2",
+    "children": [
+      { "title": "All Category", "url": "/category" },
+      { "title": "New Category", "url": "/category/new-category" }
+    ]
+  },
+  {
     "title": "Admin",
     "collapsible": true,
     "icon": "ShieldUser",
@@ -17,5 +40,10 @@
     "title": "Audit Log",
     "url": "/audit-log",
     "icon": "FileClock"
+  },
+  {
+    "title": "Help",
+    "url": "/help",
+    "icon": "BadgeInfo"
   }
 ]

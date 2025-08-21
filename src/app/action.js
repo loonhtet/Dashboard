@@ -96,3 +96,30 @@ export async function changePassword({ currentpassword, newpassword }) {
     };
   }
 }
+
+export async function checkCurrentPassword(inputPassword) {
+  try {
+    const user = await getCurrentUser();
+    if (!user) {
+      return { success: false, message: "Unauthorized. Please log in." };
+    }
+
+    const dbUser = await prisma.users.findUnique({ where: { id: user.id } });
+    if (!dbUser) {
+      return { success: false, message: "User not found." };
+    }
+
+    const isValid = await verifyPassword(inputPassword, dbUser.password);
+    if (isValid) {
+      return { success: true, message: "Password is correct." };
+    } else {
+      return { success: false, message: "Password is incorrect." };
+    }
+  } catch (error) {
+    console.error("Check password error:", error);
+    return {
+      success: false,
+      message: "An error occurred while checking the password.",
+    };
+  }
+}

@@ -44,7 +44,7 @@ const Logs = () => {
   const [isError, setIsError] = useState(false);
   const [auditLogs, setAuditLogs] = useState([]);
 
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState();
   const [actionType, setActionType] = useState("");
 
   const fetchAuditLogs = async () => {
@@ -65,8 +65,6 @@ const Logs = () => {
       setIsLoading(false);
     }
   };
-
-  console.log(auditLogs);
 
   const handleResetFilters = () => {
     setDate(null);
@@ -201,32 +199,7 @@ const Logs = () => {
           </TableBody>
         )}
       </Table>
-
       {/* End Table  */}
-
-      {/* Start Pagination */}
-      {/* <Pagination className={"mt-4"}>
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious href="#" />
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#">1</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#" isActive>
-              2
-            </PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href="#">3</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationNext href="#" />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination> */}
-      {/* End Pagination */}
     </>
   );
 };

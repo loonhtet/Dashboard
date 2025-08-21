@@ -33,15 +33,25 @@ import {
   ShieldUser,
   FileClock,
   Loader2,
+  MessageCircle,
+  BadgeInfo,
+  FileText,
+  Layers2,
+  CalendarCheck2,
 } from "lucide-react";
 
 const icons = {
   FileClock: FileClock,
   ShieldUser: ShieldUser,
+  BadgeInfo: BadgeInfo,
   House: House,
   User2: User2,
   ChevronDown: ChevronDown,
   ChevronsUp: ChevronsUp,
+  MessageCircle: MessageCircle,
+  FileText: FileText,
+  Layers2: Layers2,
+  CalendarCheck2: CalendarCheck2,
 };
 
 import Link from "next/link";
@@ -91,7 +101,7 @@ export function AppSidebar({ name }) {
                   <Collapsible key={item.title} className="group/collapsible">
                     <SidebarMenuItem>
                       <CollapsibleTrigger asChild>
-                        <SidebarMenuButton className="flex w-full items-center justify-between">
+                        <SidebarMenuButton className="flex w-full items-center justify-between px-3 py-5.5">
                           <div className="flex items-center gap-2">
                             {item.icon &&
                               (() => {
@@ -110,11 +120,11 @@ export function AppSidebar({ name }) {
                         <SidebarMenuSub>
                           {item.children?.map((sub) => (
                             <SidebarMenuSubItem key={sub.title} asChild>
-                              <SidebarMenuButton>
-                                <Link href={sub.url} className="w-full">
+                              <Link href={sub.url} className="w-full">
+                                <SidebarMenuButton className="cursor-pointer px-3 py-5.5">
                                   {sub.title}
-                                </Link>
-                              </SidebarMenuButton>
+                                </SidebarMenuButton>
+                              </Link>
                             </SidebarMenuSubItem>
                           ))}
                         </SidebarMenuSub>
@@ -124,7 +134,10 @@ export function AppSidebar({ name }) {
                 ) : (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild>
-                      <Link href={item.url} className="flex items-center gap-2">
+                      <Link
+                        href={item.url}
+                        className="flex items-center gap-2 px-3 py-5.5"
+                      >
                         {item.icon &&
                           (() => {
                             const Icon = icons[item.icon];

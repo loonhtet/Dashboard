@@ -21,6 +21,7 @@ import LoadingTableResult from "../ui/LoadingTableResult";
 import AdminDeleteForm from "./AdminDeleteForm";
 import DialogBox from "../ui/DialogBlox";
 import AdminUpdateForm from "./AdminUpdateForm";
+import { Badge } from "../ui/badge";
 
 const AdminHome = ({ currentUser }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -125,12 +126,18 @@ const AdminHome = ({ currentUser }) => {
                 <TableCell className="font-medium">{idx + 1}</TableCell>
                 <TableCell>{admin.name}</TableCell>
                 <TableCell>{admin.email}</TableCell>
-                <TableCell>{admin.email_verified ? "Yes" : "No"}</TableCell>
                 <TableCell>
-                  {format(new Date(admin.created_at), "dd MMM, hh:mm a")}
+                  {admin.email_verified ? (
+                    <Badge className="bg-green-500 text-white">Yes</Badge>
+                  ) : (
+                    <Badge className="bg-red-500 text-white">No</Badge>
+                  )}
                 </TableCell>
                 <TableCell>
-                  {format(new Date(admin.updated_at), "dd MMM, hh:mm a")}
+                  {format(new Date(admin.created_at), "dd MMM yyyy, hh:mm a")}
+                </TableCell>
+                <TableCell>
+                  {format(new Date(admin.updated_at), "dd MMM yyyy, hh:mm a")}
                 </TableCell>
 
                 <TableCell className="space-x-2 text-right">
