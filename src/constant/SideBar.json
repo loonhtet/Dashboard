@@ -6,7 +6,7 @@
   },
   {
     "title": "Booking",
-    "url": "/",
+    "url": "/booking",
     "icon": "CalendarCheck2"
   },
   {
@@ -20,12 +20,8 @@
   },
   {
     "title": "Category",
-    "collapsible": true,
-    "icon": "Layers2",
-    "children": [
-      { "title": "All Category", "url": "/category" },
-      { "title": "New Category", "url": "/category/new-category" }
-    ]
+    "url": "/category",
+    "icon": "Layers2"
   },
   {
     "title": "Admin",

@@ -5,9 +5,8 @@ import {
   Dropzone,
   DropZoneArea,
   DropzoneDescription,
-  DropzoneFileList,
-  DropzoneFileListItem,
   DropzoneMessage,
+  DropzoneFileListItem,
   DropzoneRemoveFile,
   DropzoneTrigger,
   useDropzone,
@@ -24,71 +23,72 @@ export function BlogDropzone() {
     },
     validation: {
       accept: {
-        "image/*": [".png", ".jpg", ".jpeg"],
+        "image/*": [".png", ".jpg", ".jpeg", ".webp"],
       },
       maxSize: 10 * 1024 * 1024,
-      maxFiles: 10,
+      maxFiles: 1,
     },
   });
+
+  const uploadedFile = dropzone.fileStatuses[0]; // only one file allowed
 
   return (
     <div className="not-prose flex flex-col gap-4">
       <Dropzone {...dropzone}>
         <div>
-          <div className="flex justify-between">
+          <div className="mb-2 flex justify-between">
             <DropzoneDescription>
               Recommended format: WebP. Also supports JPG and PNG.
             </DropzoneDescription>
             <DropzoneMessage />
           </div>
-          <DropZoneArea>
-            <DropzoneTrigger className="flex w-full flex-col items-center gap-4 bg-transparent py-4 text-center text-sm">
-              <CloudUploadIcon className="size-8" />
-              <div>
-                <p className="font-semibold">Upload listing images</p>
-                <p className="text-muted-foreground text-sm">
-                  Click here or drag and drop to upload
-                </p>
-              </div>
-            </DropzoneTrigger>
-          </DropZoneArea>
-        </div>
 
-        <DropzoneFileList className="grid grid-cols-3 gap-3 p-0">
-          {dropzone.fileStatuses.map((file) => (
-            <DropzoneFileListItem
-              className="bg-secondary overflow-hidden rounded-md p-0 shadow-sm"
-              key={file.id}
-              file={file}
-            >
-              {file.status === "pending" && (
-                <div className="aspect-video animate-pulse bg-black/20" />
-              )}
-              {file.status === "success" && (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={file.result}
-                  alt={`uploaded-${file.fileName}`}
-                  className="aspect-video object-cover"
-                />
-              )}
-              <div className="flex items-center justify-between p-2 pl-4">
-                <div className="min-w-0">
-                  <p className="truncate text-sm">{file.fileName}</p>
-                  <p className="text-muted-foreground text-xs">
-                    {(file.file.size / (1024 * 1024)).toFixed(2)} MB
+          <DropZoneArea className="border-muted-foreground/40 relative rounded-md border border-dashed">
+            {!uploadedFile ? (
+              <DropzoneTrigger className="flex w-full flex-col items-center gap-4 bg-transparent py-10 text-center text-sm">
+                <CloudUploadIcon className="size-8" />
+                <div>
+                  <p className="font-semibold">Upload listing image</p>
+                  <p className="text-muted-foreground text-sm">
+                    Click here or drag and drop to upload
                   </p>
                 </div>
-                <DropzoneRemoveFile
-                  variant="ghost"
-                  className="shrink-0 hover:outline"
-                >
-                  <Trash2Icon className="size-4" />
-                </DropzoneRemoveFile>
-              </div>
-            </DropzoneFileListItem>
-          ))}
-        </DropzoneFileList>
+              </DropzoneTrigger>
+            ) : (
+              <DropzoneFileListItem
+                file={uploadedFile}
+                className="relative m-0 w-full bg-transparent p-0"
+              >
+                {uploadedFile.status === "pending" && (
+                  <div className="aspect-video animate-pulse rounded-md bg-black/20" />
+                )}
+
+                {uploadedFile.status === "success" && (
+                  <div className="relative">
+                    <img
+                      src={uploadedFile.result}
+                      alt={`uploaded-${uploadedFile.fileName}`}
+                      className="aspect-video w-full rounded-md object-cover"
+                    />
+
+                    {/* Overlay with filename + size */}
+                    <div className="absolute right-0 bottom-0 left-0 flex items-center justify-between bg-black/60 px-3 py-2 text-sm text-white">
+                      <p className="truncate">{uploadedFile.fileName}</p>
+                      <p className="text-xs opacity-80">
+                        {(uploadedFile.file.size / (1024 * 1024)).toFixed(2)} MB
+                      </p>
+                    </div>
+
+                    {/* Remove button */}
+                    <DropzoneRemoveFile className="absolute top-2 right-2 rounded-full bg-[#9e4042] p-2 text-white shadow hover:bg-[#9e4042]">
+                      <Trash2Icon className="size-4" />
+                    </DropzoneRemoveFile>
+                  </div>
+                )}
+              </DropzoneFileListItem>
+            )}
+          </DropZoneArea>
+        </div>
       </Dropzone>
     </div>
   );

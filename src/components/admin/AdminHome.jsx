@@ -104,7 +104,7 @@ const AdminHome = ({ currentUser }) => {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[100px]">No</TableHead>
+            <TableHead className="w-[100px]">No.</TableHead>
             <TableHead>Name</TableHead>
             <TableHead>Email</TableHead>
             <TableHead>Email Verify</TableHead>

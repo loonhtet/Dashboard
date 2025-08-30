@@ -9,7 +9,7 @@ const WebLayout = async ({ children }) => {
   return (
     <SidebarProvider>
       <AppSidebar name={user?.name} />
-      <main className="w-full">
+      <main className="w-full lg:w-[83.3%]">
         <SidebarTrigger />
         <DashboardLayout>{children}</DashboardLayout>
       </main>

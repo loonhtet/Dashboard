@@ -1,5 +1,7 @@
+import { Loader2 } from "lucide-react";
 import { Button } from "../ui/button";
 import {
+  DialogClose,
   DialogContent,
   DialogDescription,
   DialogHeader,
@@ -23,10 +25,15 @@ const AdminDeleteForm = ({
           <DialogDescription>{description}</DialogDescription>
           <form action={action} className="mt-4 text-right">
             <input type="hidden" name="id" value={value} />
-            <Button type="submit" variant={variant} disabled={loading}>
-              {loading && <Loader2 className="mr-2 animate-spin" />}
-              {text}
-            </Button>
+            <div className="space-x-2">
+              <DialogClose asChild>
+                <Button variant="secondary">Cancel</Button>
+              </DialogClose>
+              <Button type="submit" variant={variant} disabled={loading}>
+                {loading && <Loader2 className="mr-2 animate-spin" />}
+                {text}
+              </Button>
+            </div>
           </form>
         </DialogHeader>
       </DialogContent>

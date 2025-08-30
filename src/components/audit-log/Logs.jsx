@@ -178,9 +178,9 @@ const Logs = () => {
                   <Badge
                     className={`text-xs ${
                       log.action_type === "CREATE"
-                        ? "bg-blue-600 text-white"
+                        ? "bg-green-600 text-white"
                         : log.action_type === "UPDATE"
-                          ? "bg-green-600 text-white"
+                          ? "bg-blue-600 text-white"
                           : log.action_type === "DELETE"
                             ? "bg-red-600 text-white"
                             : "bg-gray-600 text-white"
