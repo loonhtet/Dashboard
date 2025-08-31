@@ -1,6 +1,6 @@
 [
   { "label": "New Blog", "href": "blog/new-blog" },
-  { "label": "New Category", "href": "category/new-category" },
   { "label": "New Admin", "href": "/admin/new-admin" },
-  { "label": "Help", "href": "/help" }
+  { "label": "Booking", "href": "/admin/booking" },
+  { "label": "Audit Log", "href": "/admin/audit-log" }
 ]

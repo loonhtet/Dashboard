@@ -82,3 +82,50 @@ export async function deleteBooking(id, currentUser) {
     };
   }
 }
+
+export async function deleteOldBookings(currentUser) {
+  try {
+    const oneMonthAgo = new Date();
+    oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
+
+    // Find old bookings
+    const oldBookings = await prisma.bookings.findMany({
+      where: {
+        created_at: { lt: oneMonthAgo },
+      },
+    });
+
+    if (oldBookings.length === 0) {
+      return { success: true, message: "No bookings older than one month." };
+    }
+
+    await prisma.bookings.deleteMany({
+      where: {
+        created_at: { lt: oneMonthAgo },
+      },
+    });
+
+    for (const booking of oldBookings) {
+      await addAuditLog({
+        user_name: currentUser.name || null,
+        user_email: currentUser.email || null,
+        actionType: "DELETE",
+        targetType: "booking",
+        targetId: booking.id,
+        description: `Booking deleted (older than 1 month): ${booking.full_name} (${booking.email_address})`,
+      });
+    }
+
+    return {
+      success: true,
+      message: `${oldBookings.length} old bookings deleted successfully.`,
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      success: false,
+      message:
+        "Could not delete old bookings. Check your connection or contact support.",
+    };
+  }
+}

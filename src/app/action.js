@@ -123,3 +123,25 @@ export async function checkCurrentPassword(inputPassword) {
     };
   }
 }
+
+export async function getBookingsByMonth() {
+  const result = await prisma.bookings.groupBy({
+    by: ["created_at"],
+    _count: { id: true },
+  });
+
+  const grouped = {};
+
+  result.forEach((row) => {
+    const date = new Date(row.created_at);
+    const month = date.toLocaleString("default", { month: "long" });
+
+    if (!grouped[month]) grouped[month] = 0;
+    grouped[month] += row._count.id;
+  });
+
+  return Object.keys(grouped).map((month) => ({
+    month,
+    bookings: grouped[month],
+  }));
+}

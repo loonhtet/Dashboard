@@ -1,6 +1,14 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Calendar, HelpCircle, Loader2 } from "lucide-react";
+import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@/components/ui/chart";
+
 import {
   Table,
   TableBody,
@@ -11,7 +19,7 @@ import {
 } from "../ui/table";
 import LoadingTableResult from "../ui/LoadingTableResult";
 import EmptyTableResult from "../ui/EmptySearchResult";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   Book,
@@ -21,43 +29,36 @@ import {
   Lock,
 } from "lucide-react";
 import quickLinks from "@/constant/QuickLinks.json";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "../ui/dialog";
+import { Dialog, DialogTrigger } from "../ui/dialog";
 import { Button } from "../ui/button";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
 import SecretDialogForm from "./SecretDialogForm";
-import { toast } from "sonner";
+import { getBookingsByMonth } from "@/app/action";
+import { Separator } from "../ui/separator";
+
+const chartConfig = {
+  bookings: {
+    label: "Bookings",
+    color: "var(--chart-1)",
+  },
+};
 
 const HomePage = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
-  const [admins, setAdmins] = useState([]);
+  const [chartData, setChartData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const fetchAdmins = async (search = "") => {
-    setIsLoading(true);
-    setIsError(false);
-
-    try {
-      const response = await getAllAdmins(search);
-      setAdmins(response.data);
-    } catch (error) {
-      toast.error(error.message);
-      setIsError(true);
-    } finally {
+  useEffect(() => {
+    async function fetchData() {
+      setIsLoading(true);
+      const data = await getBookingsByMonth();
+      setChartData(data);
       setIsLoading(false);
     }
-  };
+    fetchData();
+  }, []);
 
   return (
     <main>
+      {/* Top Cards */}
       <section className="mb-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
         <Card className="transition-all duration-300">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -128,135 +129,94 @@ const HomePage = () => {
         </Card>
       </section>
 
+      {/* Booking Bar Chart + Quick Links */}
       <section className="grid gap-6 lg:grid-cols-4">
-        <div className="col-span-3">
-          <h6 className="mb-2 text-lg font-bold">Booking Mail List</h6>
+        <div className="lg:col-span-3">
+          <Card>
+            <CardHeader>
+              <CardTitle>Bookings Per Month</CardTitle>
+            </CardHeader>
 
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-[100px]">No</TableHead>
-                <TableHead>Name</TableHead>
-                <TableHead>Email</TableHead>
-                <TableHead>Email Verify</TableHead>
-                <TableHead>Creation Date</TableHead>
-                <TableHead>Last Modified</TableHead>
-                <TableHead className="text-right">Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            {isLoading ? (
-              <>
-                <LoadingTableResult col={7} />
-              </>
-            ) : isError ? (
-              <EmptyTableResult col={7} />
-            ) : (
-              <TableBody>
-                {admins.map((admin, idx) => (
-                  <TableRow key={admin.id}>
-                    <TableCell className="font-medium">{idx + 1}</TableCell>
-                    <TableCell>{admin.name}</TableCell>
-                    <TableCell>{admin.email}</TableCell>
-                    <TableCell>{admin.email_verified ? "Yes" : "No"}</TableCell>
-                    <TableCell>
-                      {format(new Date(admin.created_at), "dd MMM, hh:mm a")}
-                    </TableCell>
-                    <TableCell>
-                      {format(new Date(admin.updated_at), "dd MMM, hh:mm a")}
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            )}
-          </Table>
+            <CardContent>
+              {isLoading ? (
+                <div className="flex h-64 items-center justify-center">
+                  <Loader2 className="text-primary mx-auto animate-spin" />
+                </div>
+              ) : (
+                <ChartContainer config={chartConfig}>
+                  <BarChart accessibilityLayer data={chartData}>
+                    <CartesianGrid vertical={false} />
+                    <XAxis
+                      dataKey="month"
+                      tickLine={false}
+                      tickMargin={10}
+                      axisLine={false}
+                      tickFormatter={(value) => value.slice(0, 3)}
+                    />
+                    <ChartTooltip
+                      cursor={false}
+                      content={<ChartTooltipContent hideLabel />}
+                    />
+                    <Bar
+                      dataKey="bookings"
+                      fill="var(--color-bookings)"
+                      radius={8}
+                    />
+                  </BarChart>
+                </ChartContainer>
+              )}
+            </CardContent>
+
+            <div className="flex-col items-start gap-2 p-4 text-sm">
+              <div className="flex gap-2 leading-none font-medium">
+                Customer Booking Insights <Calendar className="h-4 w-4" />
+              </div>
+              <div className="text-muted-foreground mt-2 leading-none">
+                Visualizing monthly booking counts for better planning
+              </div>
+            </div>
+          </Card>
         </div>
 
         <div>
-          <div>
-            {/* <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="w-[60px]">No</TableHead>
-                  <TableHead>Admin</TableHead>
-                  <TableHead>Action</TableHead>
-                  <TableHead>Target</TableHead>
-                  <TableHead>Description</TableHead>
-                  <TableHead className="text-right">Time</TableHead>
-                </TableRow>
-              </TableHeader>
-
-              {isLoading ? (
-                <LoadingTableResult col={6} />
-              ) : isError ? (
-                <EmptyTableResult col={6} />
-              ) : auditLogs.length === 0 ? (
-                <EmptyTableResult col={6} />
-              ) : (
-                <TableBody>
-                  {auditLogs.map((log, idx) => (
-                    <TableRow key={log.id}>
-                      <TableCell>{idx + 1}</TableCell>
-                      <TableCell>
-                        {log.user_name && log.user_email ? (
-                          <>
-                            <div className="font-medium">{log.user_name}</div>
-                            <div className="text-muted-foreground text-xs">
-                              {log.user_email}
-                            </div>
-                          </>
-                        ) : (
-                          <span className="text-muted-foreground">Unknown</span>
-                        )}
-                      </TableCell>
-                      <TableCell className="uppercase">
-                        <Badge
-                          className={`text-xs ${
-                            log.action_type === "CREATE"
-                              ? "bg-blue-600 text-white"
-                              : log.action_type === "UPDATE"
-                                ? "bg-green-600 text-white"
-                                : log.action_type === "DELETE"
-                                  ? "bg-red-600 text-white"
-                                  : "bg-gray-600 text-white"
-                          }`}
-                        >
-                          {log.action_type}
-                        </Badge>
-                      </TableCell>
-                      <TableCell className="uppercase">
-                        {log.target_type}
-                      </TableCell>
-                      <TableCell>{log.description}</TableCell>
-                      <TableCell className="text-right">
-                        {format(
-                          new Date(log.timestamp),
-                          "dd MMM yyyy, hh:mm:ss a",
-                        )}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              )}
-            </Table>*/}
+          <h6 className="mb-3 text-lg font-bold">Quick Links</h6>
+          <div className="grid w-full grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-1">
+            {quickLinks.map((link, i) => (
+              <Link
+                key={i}
+                href={link.href}
+                className="group border-border bg-accent/40 hover:bg-accent flex items-center justify-between rounded-xl border px-4 py-3 transition-all hover:scale-[1.02] hover:shadow-md"
+              >
+                <span className="text-foreground group-hover:text-primary font-medium transition-colors">
+                  {link.label}
+                </span>
+                <CircleChevronRight
+                  size={18}
+                  className="text-muted-foreground group-hover:text-primary transition-transform group-hover:translate-x-1"
+                />
+              </Link>
+            ))}
           </div>
-          <div>
-            <h6 className="mb-3 text-lg font-bold">Quick Links</h6>
-            <div className="space-y-2">
-              {quickLinks.map((link, i) => (
-                <Link
-                  key={i}
-                  href={link.href}
-                  className="group border-border bg-accent/40 hover:bg-accent flex items-center justify-between rounded-xl border px-4 py-3 transition-all hover:scale-[1.02] hover:shadow-md"
-                >
-                  <span className="text-foreground group-hover:text-primary font-medium transition-colors">
-                    {link.label}
-                  </span>
-                  <CircleChevronRight
-                    size={18}
-                    className="text-muted-foreground group-hover:text-primary transition-transform group-hover:translate-x-1"
-                  />
-                </Link>
-              ))}
+          <Separator className="my-4" />
+          <div
+            href="/help"
+            className="border-border bg-primary-foreground mt-4 flex items-center justify-between rounded-xl border px-6 py-5"
+          >
+            <div className="flex flex-col items-center justify-center gap-2">
+              {/* Leading Icon */}
+              <HelpCircle
+                size={24}
+                className="text-primary group-hover:text-primary/80 transition-colors"
+              />
+              <p className="text-foreground text-lg font-semibold">
+                Help & Support
+              </p>
+              <p className="text-muted-foreground text-center text-sm">
+                Get guidance on using the dashboard
+              </p>
+              <Link href="/help">
+                <Button>View</Button>
+              </Link>
             </div>
           </div>
         </div>

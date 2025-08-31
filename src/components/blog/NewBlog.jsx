@@ -11,8 +11,33 @@ import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
 import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
-import { Upload } from "lucide-react";
+import {
+  Bold,
+  CaseSensitive,
+  Heading1,
+  Heading2,
+  Heading3,
+  Italic,
+  Link2,
+  List,
+  ListOrdered,
+  Quote,
+  RotateCcw,
+  RotateCw,
+  Upload,
+  UploadCloud,
+} from "lucide-react";
 import { toast } from "sonner";
+import { cn } from "@/lib/utils";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
 const NewBlog = ({ currentUser }) => {
   const {
@@ -52,7 +77,7 @@ const NewBlog = ({ currentUser }) => {
     editorProps: {
       attributes: {
         class:
-          "prose prose-sm sm:prose lg:prose-lg xl:prose-2xl mx-auto focus:outline-none min-h-[300px] p-4 border border-input rounded-md bg-background",
+          "prose prose-sm sm:prose lg:prose-lg xl:prose-xl mx-auto focus:outline-none min-h-[300px] p-4 border border-input rounded-md bg-primary-foreground !prose-invert !text-foreground",
       },
     },
     immediatelyRender: false,
@@ -122,8 +147,8 @@ const NewBlog = ({ currentUser }) => {
           </Button>
         </div>
       </header>
-      <section className="grid grid-cols-1 gap-4 pb-12 lg:grid-cols-3">
-        <div>
+      <section className="grid grid-cols-1 gap-y-6 pb-12 lg:grid-cols-3 lg:gap-x-6">
+        <div className="w-full">
           <BlogDropzone />
           <form
             onSubmit={handleSubmit(onSubmit)}
@@ -149,83 +174,138 @@ const NewBlog = ({ currentUser }) => {
         </div>
 
         <div className="col-span-2">
-          <label className="text-foreground text-sm font-medium">
-            Blog Content
-          </label>
-          <div className="mb-2 flex flex-wrap gap-2">
+          <div className="mb-2 flex w-fit flex-wrap items-center gap-2">
             <Button
               variant="outline"
-              size="sm"
+              onClick={() => editor?.chain().focus().undo().run()}
+              className="flex items-center gap-2"
+            >
+              <RotateCcw className="h-4 w-4" />
+              <span className="sr-only">Undo</span>
+            </Button>
+
+            <Button
+              variant="outline"
+              onClick={() => editor?.chain().focus().redo().run()}
+              className="flex items-center gap-2"
+            >
+              <RotateCw className="h-4 w-4" />
+              <span className="sr-only">Redo</span>
+            </Button>
+            <Button
+              variant="outline"
               onClick={() => editor?.chain().focus().toggleBold().run()}
-              className={editor?.isActive("bold") ? "bg-accent" : ""}
+              className={cn(
+                "flex items-center gap-2",
+                editor?.isActive("bold")
+                  ? "bg-accent text-accent-foreground"
+                  : "",
+              )}
             >
-              Bold
+              <Bold className="h-4 w-4" />
+              <span className="sr-only">Bold</span>
             </Button>
             <Button
               variant="outline"
-              size="sm"
               onClick={() => editor?.chain().focus().toggleItalic().run()}
-              className={editor?.isActive("italic") ? "bg-accent" : ""}
+              className={cn(
+                "flex items-center gap-2",
+                editor?.isActive("italic")
+                  ? "bg-accent text-accent-foreground"
+                  : "",
+              )}
             >
-              Italic
+              <Italic className="h-4 w-4" />
+              <span className="sr-only">Italic</span>
             </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() =>
-                editor?.chain().focus().toggleHeading({ level: 1 }).run()
-              }
-              className={
-                editor?.isActive("heading", { level: 1 }) ? "bg-accent" : ""
-              }
-            >
-              H1
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() =>
-                editor?.chain().focus().toggleHeading({ level: 2 }).run()
-              }
-              className={
-                editor?.isActive("heading", { level: 2 }) ? "bg-accent" : ""
-              }
-            >
-              H2
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => editor?.chain().focus().toggleBulletList().run()}
-              className={editor?.isActive("bulletList") ? "bg-accent" : ""}
-            >
-              List
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => editor?.chain().focus().toggleOrderedList().run()}
-              className={editor?.isActive("orderedList") ? "bg-accent" : ""}
-            >
-              Numbered
-            </Button>
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={() => {
-                const url = window.prompt("Enter the URL");
-                if (url) {
-                  editor?.chain().focus().setLink({ href: url }).run();
+
+            <Select
+              value="p"
+              onValueChange={(value) => {
+                switch (value) {
+                  case "h1":
+                    editor?.chain().focus().toggleHeading({ level: 1 }).run();
+                    break;
+                  case "h2":
+                    editor?.chain().focus().toggleHeading({ level: 2 }).run();
+                    break;
+                  case "h3":
+                    editor?.chain().focus().toggleHeading({ level: 3 }).run();
+                    break;
+                  case "p":
+                    editor?.chain().focus().setParagraph().run();
+                    break;
+                  case "blockquote":
+                    editor?.chain().focus().toggleBlockquote().run();
+                    break;
+                  default:
+                    break;
                 }
               }}
-              className={editor?.isActive("link") ? "bg-accent" : ""}
             >
-              Link
+              <SelectTrigger>
+                <SelectValue placeholder="Select block type" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectItem value="p" className="flex items-center gap-2">
+                    <CaseSensitive className="h-4 w-4" />
+                    <span>Paragraph</span>
+                  </SelectItem>
+                  <SelectItem value="h1" className="flex items-center gap-2">
+                    <Heading1 className="h-4 w-4" />
+                    <span>Heading 1</span>
+                  </SelectItem>
+                  <SelectItem value="h2" className="flex items-center gap-2">
+                    <Heading2 className="h-4 w-4" />
+                    <span>Heading 2</span>
+                  </SelectItem>
+                  <SelectItem value="h3" className="flex items-center gap-2">
+                    <Heading3 className="h-4 w-4" />
+                    <span>Heading 3</span>
+                  </SelectItem>
+
+                  <SelectItem
+                    value="blockquote"
+                    className="flex items-center gap-2"
+                  >
+                    <Quote className="h-4 w-4" />
+                    <span>Quote</span>
+                  </SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+
+            <Button
+              variant="outline"
+              onClick={() => editor?.chain().focus().toggleBulletList().run()}
+              className={cn(
+                "flex items-center gap-2",
+                editor?.isActive("bulletList")
+                  ? "bg-accent text-accent-foreground"
+                  : "",
+              )}
+            >
+              <List className="h-4 w-4" />
+              <span className="sr-only">Bullet List</span>
             </Button>
-            <Button variant="outline" size="sm" asChild>
-              <label>
-                <Upload className="mr-2 h-4 w-4" />
-                Image
+            <Button
+              variant="outline"
+              onClick={() => editor?.chain().focus().toggleOrderedList().run()}
+              className={cn(
+                "flex items-center gap-2",
+                editor?.isActive("orderedList")
+                  ? "bg-accent text-accent-foreground"
+                  : "",
+              )}
+            >
+              <ListOrdered className="h-4 w-4" />
+              <span className="sr-only">Numbered List</span>
+            </Button>
+            <Button variant="outline" asChild>
+              <label className="flex items-center gap-2">
+                <UploadCloud className="h-4 w-4" />
+                <span>Image</span>
                 <input
                   type="file"
                   accept="image/*"

@@ -11,7 +11,7 @@ import {
 
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-import { Search } from "lucide-react";
+import { Search, Plus } from "lucide-react";
 import { format } from "date-fns";
 import EmptyTableResult from "../ui/EmptySearchResult";
 import { toast } from "sonner";
@@ -19,9 +19,13 @@ import { useEffect, useState } from "react";
 import LoadingTableResult from "../ui/LoadingTableResult";
 import DialogBox from "../ui/DialogBlox";
 import CategoryUpdateForm from "./CategoryUpdateForm";
-import { Badge } from "../ui/badge";
-import { deleteCategory, getAllCategories } from "@/app/category/action";
+import {
+  deleteCategory,
+  getAllCategories,
+  createCategory,
+} from "@/app/category/action";
 import CategoryDeleteForm from "./CategoryDeleteForm";
+import CategoryCreateForm from "./CategoryCreateForm";
 
 const CategoryHome = ({ currentUser }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -36,7 +40,6 @@ const CategoryHome = ({ currentUser }) => {
 
     try {
       const response = await getAllCategories(search);
-      console.log(response);
       if (response.success) {
         setCategories(response.data);
       } else {
@@ -82,27 +85,42 @@ const CategoryHome = ({ currentUser }) => {
 
   return (
     <>
-      <header className="mb-6 flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
+      <header className="mb-6 flex flex-col justify-between gap-4 lg:flex-row lg:items-center">
         <h1 className="text-2xl font-bold">Categories</h1>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            fetchCategories(searchQuery);
-          }}
-          className="flex w-full max-w-sm gap-2"
-        >
-          <Input
-            name="search"
-            type="text"
-            placeholder="Search by name"
-            className="mt-0"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+        <div className="flex w-full max-w-sm gap-2">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              fetchCategories(searchQuery);
+            }}
+            className="flex flex-1 gap-2"
+          >
+            <Input
+              name="search"
+              type="text"
+              placeholder="Search by name"
+              className="mt-0"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <Button type="submit" variant="outline">
+              <Search />
+            </Button>
+          </form>
+
+          <DialogBox
+            text="New Category"
+            variant="default"
+            content={({ setOpen }) => (
+              <CategoryCreateForm
+                title="New Category"
+                action={fetchCategories}
+                currentUser={currentUser}
+                setOpen={setOpen}
+              />
+            )}
           />
-          <Button type="submit" variant="outline">
-            <Search />
-          </Button>
-        </form>
+        </div>
       </header>
 
       <Table>
@@ -173,7 +191,6 @@ const CategoryHome = ({ currentUser }) => {
           </TableBody>
         )}
       </Table>
-      {/* End Table */}
     </>
   );
 };

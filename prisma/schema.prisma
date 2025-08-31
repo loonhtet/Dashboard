@@ -32,7 +32,7 @@ model bookings {
 }
 
 model blogs {
-  id         String     @id @default(cuid())
+  id         String     @id @default(uuid())
   title      String
   slug       String     @unique
   content    String
@@ -44,7 +44,7 @@ model blogs {
 }
 
 model categories {
-  id         String   @id @default(cuid())
+  id         String   @id @default(uuid())
   name       String   @unique
   slug       String   @unique
   created_at DateTime @default(now())

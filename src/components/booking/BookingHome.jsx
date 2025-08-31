@@ -10,9 +10,13 @@ import {
 } from "@/components/ui/table";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
-import { Search } from "lucide-react";
+import { Search, Trash } from "lucide-react";
 import { format } from "date-fns";
-import { getAllBookings, deleteBooking } from "@/app/booking/action";
+import {
+  getAllBookings,
+  deleteBooking,
+  deleteOldBookings,
+} from "@/app/booking/action";
 import EmptyTableResult from "../ui/EmptySearchResult";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
@@ -23,6 +27,7 @@ import BookingDetailModal from "@/components/booking/BookingDetailModal";
 import { Badge } from "../ui/badge";
 import { Pagination } from "@/components/ui/pagination"; // Shadcn Pagination
 import PagePagination from "../ui/PagePagination";
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
 
 const BookingHome = ({ currentUser }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -76,6 +81,20 @@ const BookingHome = ({ currentUser }) => {
     }
   };
 
+  const handleDeleteOldBookings = async () => {
+    setIsLoading(true);
+    try {
+      const response = await deleteOldBookings(currentUser);
+      toast.success(response.message);
+      fetchBookings(searchQuery, pagination.currentPage);
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to delete old bookings. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchBookings();
   }, []);
@@ -84,25 +103,42 @@ const BookingHome = ({ currentUser }) => {
     <>
       <header className="mb-6 flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
         <h1 className="text-2xl font-bold">Bookings</h1>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            fetchBookings(searchQuery);
-          }}
-          className="flex w-full max-w-sm gap-2"
-        >
-          <Input
-            name="search"
-            type="text"
-            placeholder="Search by name, phone, or service"
-            className="mt-0"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-          <Button type="submit" variant="outline">
-            <Search />
-          </Button>
-        </form>
+        <div className="flex w-full max-w-sm gap-2">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              fetchBookings(searchQuery);
+            }}
+            className="flex flex-1 gap-2"
+          >
+            <Input
+              name="search"
+              type="text"
+              placeholder="Search by name, phone, or service"
+              className="mt-0"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <Button type="submit" variant="outline">
+              <Search />
+            </Button>
+          </form>
+
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                type="button"
+                variant="destructive"
+                onClick={handleDeleteOldBookings}
+              >
+                <Trash />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Delete all bookings older than one month</p>
+            </TooltipContent>
+          </Tooltip>
+        </div>
       </header>
 
       <div className="scrollbar scrollbar-thumb-sky-700 scrollbar-track-sky-300 w-full overflow-x-auto">
