@@ -19,6 +19,24 @@
     ]
   },
   {
+    "title": "Gallery",
+    "collapsible": true,
+    "icon": "FileText",
+    "children": [
+      { "title": "All Gallery", "url": "/gallery" },
+      { "title": "New Gallery", "url": "/gallery/new-gallery" }
+    ]
+  },
+  {
+    "title": "Services",
+    "collapsible": true,
+    "icon": "FileText",
+    "children": [
+      { "title": "All Services", "url": "/services" },
+      { "title": "New Services", "url": "/services/new-services" }
+    ]
+  },
+  {
     "title": "Category",
     "url": "/category",
     "icon": "Layers2"
