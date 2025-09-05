@@ -12,13 +12,14 @@ import {
   useDropzone,
 } from "./dropzone";
 
-export function BlogDropzone() {
+export function BlogDropzone({ onFileSelect }) {
   const dropzone = useDropzone({
     onDropFile: async (file) => {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      // immediately pass the actual file back
+      onFileSelect?.(file); // ✅ important
       return {
         status: "success",
-        result: URL.createObjectURL(file),
+        result: URL.createObjectURL(file), // still used for preview
       };
     },
     validation: {
@@ -71,7 +72,6 @@ export function BlogDropzone() {
                       className="aspect-video w-full rounded-md object-cover"
                     />
 
-                    {/* Overlay with filename + size */}
                     <div className="absolute right-0 bottom-0 left-0 flex items-center justify-between bg-black/60 px-3 py-2 text-sm text-white">
                       <p className="truncate">{uploadedFile.fileName}</p>
                       <p className="text-xs opacity-80">
@@ -79,7 +79,6 @@ export function BlogDropzone() {
                       </p>
                     </div>
 
-                    {/* Remove button */}
                     <DropzoneRemoveFile className="absolute top-2 right-2 rounded-full bg-[#9e4042] p-2 text-white shadow hover:bg-[#9e4042]">
                       <Trash2Icon className="size-4" />
                     </DropzoneRemoveFile>

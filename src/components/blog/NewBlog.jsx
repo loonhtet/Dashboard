@@ -3,43 +3,26 @@
 import { useForm } from "react-hook-form";
 import { BlogDropzone } from "../ui/BlogDropzone";
 import InputBox from "../ui/InputBox";
-import { useState, useCallback } from "react";
-import { updateCategory } from "@/app/category/action";
+import { useState, useCallback, useEffect } from "react";
 import { Button } from "../ui/button";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
 import Image from "@tiptap/extension-image";
 import Link from "@tiptap/extension-link";
-import {
-  Bold,
-  CaseSensitive,
-  Heading1,
-  Heading2,
-  Heading3,
-  Italic,
-  Link2,
-  List,
-  ListOrdered,
-  Quote,
-  RotateCcw,
-  RotateCw,
-  Upload,
-  UploadCloud,
-} from "lucide-react";
+
 import { toast } from "sonner";
-import { cn } from "@/lib/utils";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
+import ComboBox from "../ui/ComboBox";
+import RichTextEditorToolbar from "../ui/RichTextEditorToolbar";
+import RichTextEditorContent from "../ui/RichTextEditorContent";
+import { createBlog, getAllCategories } from "@/app/blog/new-blog/action";
 
 const NewBlog = ({ currentUser }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+
+  const [categories, setCategories] = useState([]);
+
   const {
     register,
     handleSubmit,
@@ -50,7 +33,8 @@ const NewBlog = ({ currentUser }) => {
     defaultValues: {
       title: "",
       description: "",
-      content: "",
+      category: "",
+      thumbnail: null,
     },
   });
 
@@ -83,12 +67,26 @@ const NewBlog = ({ currentUser }) => {
     immediatelyRender: false,
   });
 
+  const fetchCategories = async (search = "") => {
+    setIsLoading(true);
+    setIsError(false);
+
+    try {
+      const response = await getAllCategories();
+      setCategories(response.data);
+    } catch (error) {
+      toast.error(error.message);
+      setIsError(true);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   const handleImageUpload = useCallback(
     async (event) => {
       const file = event.target.files[0];
       if (file) {
         try {
-          // Simulating BlogDropzone upload logic
           const reader = new FileReader();
           reader.onload = (e) => {
             const base64 = e.target.result;
@@ -108,13 +106,17 @@ const NewBlog = ({ currentUser }) => {
 
     try {
       const payload = {
+        thumbnail: data.thumbnail,
         title: data.title,
         description: data.description,
         content: data.content,
+        categoryId: data.category,
         currentUser: currentUser,
       };
 
-      const res = await updateCategory(payload);
+      console.log(payload);
+
+      const res = await createBlog(payload);
 
       if (res.success) {
         toast.success(res.message);
@@ -129,6 +131,10 @@ const NewBlog = ({ currentUser }) => {
       setIsSubmitting(false);
     }
   };
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
 
   return (
     <>
@@ -149,11 +155,21 @@ const NewBlog = ({ currentUser }) => {
       </header>
       <section className="grid grid-cols-1 gap-y-6 pb-12 lg:grid-cols-3 lg:gap-x-6">
         <div className="w-full">
-          <BlogDropzone />
+          <BlogDropzone
+            onFileSelect={(file) => {
+              setValue("thumbnail", file, {
+                shouldValidate: true,
+                shouldDirty: true,
+              });
+            }}
+          />
+
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="mt-4 grid grid-cols-1 gap-4"
           >
+            <input type="hidden" {...register("thumbnail")} />
+
             <InputBox
               label="Title"
               name="title"
@@ -170,152 +186,26 @@ const NewBlog = ({ currentUser }) => {
               errors={errors}
               validation={{ required: "Description is required" }}
             />
+
+            <ComboBox
+              label="Category"
+              name="category"
+              placeholder="Select a category"
+              data={categories}
+              register={register}
+              errors={errors}
+              validation={{ required: "Category is required" }}
+              setValue={setValue}
+            />
           </form>
         </div>
 
         <div className="col-span-2">
-          <div className="mb-2 flex w-fit flex-wrap items-center gap-2">
-            <Button
-              variant="outline"
-              onClick={() => editor?.chain().focus().undo().run()}
-              className="flex items-center gap-2"
-            >
-              <RotateCcw className="h-4 w-4" />
-              <span className="sr-only">Undo</span>
-            </Button>
-
-            <Button
-              variant="outline"
-              onClick={() => editor?.chain().focus().redo().run()}
-              className="flex items-center gap-2"
-            >
-              <RotateCw className="h-4 w-4" />
-              <span className="sr-only">Redo</span>
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => editor?.chain().focus().toggleBold().run()}
-              className={cn(
-                "flex items-center gap-2",
-                editor?.isActive("bold")
-                  ? "bg-accent text-accent-foreground"
-                  : "",
-              )}
-            >
-              <Bold className="h-4 w-4" />
-              <span className="sr-only">Bold</span>
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => editor?.chain().focus().toggleItalic().run()}
-              className={cn(
-                "flex items-center gap-2",
-                editor?.isActive("italic")
-                  ? "bg-accent text-accent-foreground"
-                  : "",
-              )}
-            >
-              <Italic className="h-4 w-4" />
-              <span className="sr-only">Italic</span>
-            </Button>
-
-            <Select
-              value="p"
-              onValueChange={(value) => {
-                switch (value) {
-                  case "h1":
-                    editor?.chain().focus().toggleHeading({ level: 1 }).run();
-                    break;
-                  case "h2":
-                    editor?.chain().focus().toggleHeading({ level: 2 }).run();
-                    break;
-                  case "h3":
-                    editor?.chain().focus().toggleHeading({ level: 3 }).run();
-                    break;
-                  case "p":
-                    editor?.chain().focus().setParagraph().run();
-                    break;
-                  case "blockquote":
-                    editor?.chain().focus().toggleBlockquote().run();
-                    break;
-                  default:
-                    break;
-                }
-              }}
-            >
-              <SelectTrigger>
-                <SelectValue placeholder="Select block type" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectItem value="p" className="flex items-center gap-2">
-                    <CaseSensitive className="h-4 w-4" />
-                    <span>Paragraph</span>
-                  </SelectItem>
-                  <SelectItem value="h1" className="flex items-center gap-2">
-                    <Heading1 className="h-4 w-4" />
-                    <span>Heading 1</span>
-                  </SelectItem>
-                  <SelectItem value="h2" className="flex items-center gap-2">
-                    <Heading2 className="h-4 w-4" />
-                    <span>Heading 2</span>
-                  </SelectItem>
-                  <SelectItem value="h3" className="flex items-center gap-2">
-                    <Heading3 className="h-4 w-4" />
-                    <span>Heading 3</span>
-                  </SelectItem>
-
-                  <SelectItem
-                    value="blockquote"
-                    className="flex items-center gap-2"
-                  >
-                    <Quote className="h-4 w-4" />
-                    <span>Quote</span>
-                  </SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-
-            <Button
-              variant="outline"
-              onClick={() => editor?.chain().focus().toggleBulletList().run()}
-              className={cn(
-                "flex items-center gap-2",
-                editor?.isActive("bulletList")
-                  ? "bg-accent text-accent-foreground"
-                  : "",
-              )}
-            >
-              <List className="h-4 w-4" />
-              <span className="sr-only">Bullet List</span>
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => editor?.chain().focus().toggleOrderedList().run()}
-              className={cn(
-                "flex items-center gap-2",
-                editor?.isActive("orderedList")
-                  ? "bg-accent text-accent-foreground"
-                  : "",
-              )}
-            >
-              <ListOrdered className="h-4 w-4" />
-              <span className="sr-only">Numbered List</span>
-            </Button>
-            <Button variant="outline" asChild>
-              <label className="flex items-center gap-2">
-                <UploadCloud className="h-4 w-4" />
-                <span>Image</span>
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  onChange={handleImageUpload}
-                />
-              </label>
-            </Button>
-          </div>
-          <EditorContent editor={editor} />
+          <RichTextEditorToolbar
+            editor={editor}
+            handleImageUpload={handleImageUpload}
+          />
+          <RichTextEditorContent editor={editor} />
         </div>
       </section>
     </>
