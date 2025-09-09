@@ -8,7 +8,6 @@ import InputBox from "../ui/InputBox";
 import { BlogDropzone } from "../ui/BlogDropzone";
 import { createService } from "@/app/services/action";
 
-
 const NewServices = ({ currentUser }) => {
   const {
     register,

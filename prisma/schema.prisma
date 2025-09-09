@@ -49,7 +49,6 @@ model gallery {
   title       String
   serviceId   String    
   service     services  @relation(fields: [serviceId], references: [id], onDelete: Cascade)
-
   created_at  DateTime  @default(now()) @db.Timestamp(6)
   updated_at  DateTime  @default(now()) @db.Timestamp(6)
 }
@@ -60,7 +59,6 @@ model services {
   description String?    @db.Text
   slug        String     @unique
   gallery     gallery[]  
-
   created_at  DateTime   @default(now()) @db.Timestamp(6)
   updated_at  DateTime   @default(now()) @db.Timestamp(6)
 }
