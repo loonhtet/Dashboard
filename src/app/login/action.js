@@ -20,7 +20,7 @@ export async function loginUser({ email, password }) {
       return { success: false, message: "Incorrect password." };
     }
 
-    // Set cookie (optional but recommended)
+    // Set cookie
     cookies().set(
       "currentUser",
       JSON.stringify({
@@ -33,7 +33,7 @@ export async function loginUser({ email, password }) {
         path: "/",
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        maxAge: 60 * 60 * 24 * 7,
+        maxAge: 60 * 60, // Expire in 1 hour
       },
     );
 

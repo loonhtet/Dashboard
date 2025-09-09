@@ -20,7 +20,7 @@ import LoadingTableResult from "../ui/LoadingTableResult";
 import BlogDeleteForm from "./BlogDeleteForm";
 import DialogBox from "../ui/DialogBlox";
 import { Badge } from "../ui/badge";
-import { deleteBlog, getAllBlogs } from "@/app/blog/action"; // updated imports
+import { deleteBlog, getAllBlogs } from "@/app/blog/action";
 import Link from "next/link";
 
 const BlogHome = ({ currentUser }) => {
@@ -136,7 +136,7 @@ const BlogHome = ({ currentUser }) => {
                 </TableCell>
 
                 <TableCell className="space-x-2 text-right">
-                  <Link href={`/app/blog/${blog.slug}/update`}>
+                  <Link href={`/blog/${blog.slug}/update-blog`}>
                     <Button variant={"secondary"}>Update</Button>
                   </Link>
 

@@ -89,22 +89,38 @@ async function main() {
   const blogsData = [
     {
       title: "The Future of Web Development",
-      content:
-        "Web development is evolving rapidly with frameworks like Next.js, Remix, and modern tooling...",
+      content: `
+  # The Future of Web Development
+  Web development is evolving rapidly with frameworks like **Next.js**, **Remix**, and modern tooling...
+      `,
+      description:
+        "An in-depth look at the upcoming trends and technologies shaping the future of web development.",
+      thumbnail: "https://example.com/thumbnails/webdev.png",
       published: true,
       category: "technology",
     },
     {
       title: "10 Design Tips for Better UI/UX",
-      content:
-        "Good design is more than just aesthetics. Here are 10 actionable tips...",
+      content: `
+  # 10 Design Tips for Better UI/UX
+  Good design is more than just aesthetics.
+  Here are **10 actionable tips** you can use in your next project...
+      `,
+      description:
+        "Learn practical tips and tricks to enhance user interface and experience in your design projects.",
+      thumbnail: "https://example.com/thumbnails/design.png",
       published: true,
       category: "design",
     },
     {
       title: "How to Scale Your Startup",
-      content:
-        "Scaling a startup requires the right mindset, funding strategy, and team building...",
+      content: `
+  # How to Scale Your Startup
+  Scaling a startup requires the right **mindset**, **funding strategy**, and **team building**...
+      `,
+      description:
+        "Key strategies for startup founders on how to grow their business efficiently and sustainably.",
+      thumbnail: "https://example.com/thumbnails/startup.png",
       published: false,
       category: "business",
     },
@@ -122,9 +138,11 @@ async function main() {
       create: {
         id: uuidv4(),
         title: blog.title,
-        content: blog.content,
-        published: blog.published,
         slug,
+        description: blog.description,
+        content: blog.content,
+        thumbnail: blog.thumbnail,
+        published: blog.published,
         categoryId: category?.id,
       },
     });
