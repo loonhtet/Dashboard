@@ -136,7 +136,7 @@ const BlogHome = ({ currentUser }) => {
                 </TableCell>
 
                 <TableCell className="space-x-2 text-right">
-                  <Link href={`/app/blog/${blog.slug}/update`}>
+                  <Link href={`/blog/${blog.slug}/update-blog`}>
                     <Button variant={"secondary"}>Update</Button>
                   </Link>
 

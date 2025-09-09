@@ -44,7 +44,7 @@ export function BlogDropzone({ onFileSelect }) {
             <DropzoneMessage />
           </div>
 
-          <DropZoneArea className="border-muted-foreground/40 relative rounded-md border border-dashed">
+          <DropZoneArea className="border-muted-foreground/40 bg-primary-foreground relative rounded-md border border-dashed">
             {!uploadedFile ? (
               <DropzoneTrigger className="flex w-full flex-col items-center gap-4 bg-transparent py-10 text-center text-sm">
                 <CloudUploadIcon className="size-8" />
