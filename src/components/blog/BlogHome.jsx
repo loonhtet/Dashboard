@@ -38,6 +38,7 @@ const BlogHome = ({ currentUser }) => {
     try {
       const response = await getAllBlogs(search);
       setBlogs(response.data);
+      toast.success(response.message);
     } catch (error) {
       toast.error(error.message);
       setIsError(true);
@@ -56,12 +57,11 @@ const BlogHome = ({ currentUser }) => {
     setDeletingId(id);
 
     try {
-      await deleteBlog(id, currentUser);
+      const response = await deleteBlog(id, currentUser);
       fetchBlogs();
-      toast.success("Blog deleted successfully!");
+      toast.success(response.message);
     } catch (error) {
-      console.error("Failed to delete blog:", error);
-      toast.error("Failed to delete blog. Please try again.");
+      toast.error(response.message);
     } finally {
       setDeletingId(null);
     }

@@ -1,5 +1,6 @@
 "use server";
 
+import { Messages } from "@/lib/message";
 import { prisma } from "@/lib/prisma";
 
 export async function getAuditLogs({ date, actionType }) {
@@ -31,13 +32,13 @@ export async function getAuditLogs({ date, actionType }) {
     return {
       data: logs,
       success: true,
-      message: "Audit log data successfully loaded.",
+      message: Messages.action.fetch.success("Audit Log"),
     };
   } catch (error) {
     console.error(error);
     return {
       success: false,
-      message: "Could not fetch audit log data.",
+      message: Messages.action.fetch.error("Audit Log"),
     };
   }
 }

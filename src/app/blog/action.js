@@ -20,7 +20,7 @@ export async function getAllBlogs(search = "") {
       },
     });
 
-    return { success: true, data: blogs };
+    return { success: true, data: blogs, message: "Blog data loaded." };
   } catch (error) {
     console.error("Error fetching blogs:", error);
     return {

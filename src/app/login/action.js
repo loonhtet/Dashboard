@@ -20,7 +20,6 @@ export async function loginUser({ email, password }) {
       return { success: false, message: "Incorrect password." };
     }
 
-    // Set cookie
     cookies().set(
       "currentUser",
       JSON.stringify({

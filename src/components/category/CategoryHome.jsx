@@ -46,6 +46,7 @@ const CategoryHome = ({ currentUser }) => {
         toast.error(response.message);
         setIsError(true);
       }
+      toast.success(response.message);
     } catch (error) {
       toast.error(error.message);
       setIsError(true);
