@@ -4,6 +4,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -77,7 +78,6 @@ const Logs = () => {
 
   return (
     <>
-      {/* Start Header */}
       <header className="mb-6 flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
         <h1 className="text-2xl font-bold">Audit Logs</h1>
         <div className="flex w-fit gap-2">
@@ -136,13 +136,11 @@ const Logs = () => {
           </Tooltip>
         </div>
       </header>
-      {/* End Header */}
 
-      {/* Start Table  */}
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[60px]">No</TableHead>
+            <TableHead className="w-[60px]">No.</TableHead>
             <TableHead>Admin</TableHead>
             <TableHead>Action</TableHead>
             <TableHead>Target</TableHead>
@@ -198,8 +196,15 @@ const Logs = () => {
             ))}
           </TableBody>
         )}
+        <TableFooter>
+          <TableRow>
+            <TableCell colSpan={6}>
+              Audit Logs older than 3 months will be automatically removed from
+              the server.
+            </TableCell>
+          </TableRow>
+        </TableFooter>
       </Table>
-      {/* End Table  */}
     </>
   );
 };

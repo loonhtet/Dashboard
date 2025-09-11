@@ -19,9 +19,9 @@ import { useEffect, useState } from "react";
 import LoadingTableResult from "../ui/LoadingTableResult";
 import BlogDeleteForm from "./BlogDeleteForm";
 import DialogBox from "../ui/DialogBlox";
-import { Badge } from "../ui/badge";
-import { deleteBlog, getAllBlogs } from "@/app/blog/action";
+import { deleteBlog, getAllBlogs, updateBlogStatus } from "@/app/blog/action";
 import Link from "next/link";
+import { Switch } from "../ui/switch";
 
 const BlogHome = ({ currentUser }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -64,6 +64,24 @@ const BlogHome = ({ currentUser }) => {
       toast.error(response.message);
     } finally {
       setDeletingId(null);
+    }
+  };
+
+  const handleStatusChange = async (blogId, isPublished) => {
+    try {
+      const res = await updateBlogStatus(blogId, isPublished);
+      if (res.success) {
+        toast.success(res.message);
+        setBlogs((prev) =>
+          prev.map((b) =>
+            b.id === blogId ? { ...b, published: isPublished } : b,
+          ),
+        );
+      } else {
+        toast.error(res.message);
+      }
+    } catch (err) {
+      toast.error(err.message);
     }
   };
 
@@ -122,11 +140,12 @@ const BlogHome = ({ currentUser }) => {
                 <TableCell>{blog.title}</TableCell>
                 <TableCell>{blog.category?.name || "N/A"}</TableCell>
                 <TableCell>
-                  {blog.published ? (
-                    <Badge className="bg-green-500 text-white">Yes</Badge>
-                  ) : (
-                    <Badge className="bg-red-500 text-white">No</Badge>
-                  )}
+                  <Switch
+                    checked={blog.published}
+                    onCheckedChange={(checked) =>
+                      handleStatusChange(blog.id, checked)
+                    }
+                  />
                 </TableCell>
                 <TableCell>
                   {format(new Date(blog.created_at), "dd MMM yyyy, hh:mm a")}

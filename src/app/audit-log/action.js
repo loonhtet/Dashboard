@@ -42,3 +42,23 @@ export async function getAuditLogs({ date, actionType }) {
     };
   }
 }
+
+export async function deleteOldAuditLogs() {
+  try {
+    const oneMonthAgo = new Date();
+    oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 3);
+
+    const result = await prisma.audit_logs.deleteMany({
+      where: {
+        timestamp: {
+          lt: oneMonthAgo,
+        },
+      },
+    });
+
+    return { success: true, data: result.count };
+  } catch (error) {
+    console.error(error);
+    return { success: false };
+  }
+}

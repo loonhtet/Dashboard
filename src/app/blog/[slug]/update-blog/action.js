@@ -65,9 +65,12 @@ export async function updateBlog({
     });
 
     await addAuditLog({
-      action: "UPDATE",
-      userId: currentUser?.id,
-      details: `Updated blog: ${updatedBlog.title}`,
+      user_name: currentUser?.name || null,
+      user_email: currentUser?.email || null,
+      actionType: "UPDATE",
+      targetType: "blog",
+      targetId: updatedBlog.id,
+      description: `Blog updated: ${updatedBlog.title}`,
     });
 
     return {
