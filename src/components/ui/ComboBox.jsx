@@ -72,7 +72,8 @@ const Combobox = ({
                     value={item.name}
                     onSelect={() => {
                       setSelected(item); // store full object
-                      setValue(name, item.id); // ✅ update form with category id
+                      setValue(name, item.id); // use the actual id
+
                       setOpen(false);
                     }}
                   >

@@ -1,12 +1,12 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { toast } from "sonner";
 import { Button } from "../ui/button";
 import InputBox from "../ui/InputBox";
 import { BlogDropzone } from "../ui/BlogDropzone";
-import { createService } from "@/app/services/action";
+import { createService } from "@/app/services/new-services/action";
 
 const NewServices = ({ currentUser }) => {
   const {
@@ -14,22 +14,41 @@ const NewServices = ({ currentUser }) => {
     handleSubmit,
     formState: { errors },
     reset,
+    setValue,
   } = useForm({
     defaultValues: {
       title: "",
       description: "",
+      image: null,
     },
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const handleImageUpload = useCallback(async (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      try {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const base64 = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      } catch (err) {
+        toast.error("Failed to upload image");
+      }
+    }
+  });
+
   const onSubmit = async (data) => {
     setIsSubmitting(true);
+    console.log(data);
 
     try {
       const payload = {
         title: data.title,
         description: data.description,
+        image: data.image,
         currentUser,
       };
 
@@ -66,14 +85,23 @@ const NewServices = ({ currentUser }) => {
         </div>
       </header>
 
-      <section className="grid grid-cols-1 gap-y-6 pb-12 lg:grid-cols-3 lg:gap-x-6">
+      <section className="grid grid-cols-1 gap-y-6 pb-12 lg:gap-x-6">
         <div className="w-full">
-          <BlogDropzone />
+          <BlogDropzone
+            onFileSelect={(file) =>
+              setValue("image", file, {
+                shouldValidate: true,
+                shouldDirty: true,
+              })
+            }
+          />
 
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="mt-4 grid grid-cols-1 gap-4"
           >
+            <input type="hidden" {...register("image")} />
+
             <InputBox
               label="Title"
               name="title"
@@ -82,7 +110,6 @@ const NewServices = ({ currentUser }) => {
               errors={errors}
               validation={{ required: "Title is required" }}
             />
-
             <InputBox
               label="Description"
               name="description"
@@ -91,21 +118,7 @@ const NewServices = ({ currentUser }) => {
               errors={errors}
               validation={{ required: "Description is required" }}
             />
-
-            <Button
-              type="submit"
-              variant="default"
-              disabled={isSubmitting}
-              className="mt-2"
-            >
-              {isSubmitting ? "Saving..." : "Save Service"}
-            </Button>
           </form>
-        </div>
-
-        {/* Right column placeholder (could later be preview or gallery management) */}
-        <div className="text-muted-foreground col-span-2 flex items-center justify-center rounded-md border border-dashed p-6">
-          Service Preview / Gallery Preview (coming soon)
         </div>
       </section>
     </>

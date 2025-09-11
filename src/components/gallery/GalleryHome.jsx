@@ -102,6 +102,7 @@ const GalleryHome = ({ currentUser }) => {
             <TableHead className="w-[100px]">Id</TableHead>
             <TableHead>Image</TableHead>
             <TableHead>Title</TableHead>
+            <TableHead>Description</TableHead>
             <TableHead>Services</TableHead>
             <TableHead>Creation Date</TableHead>
             <TableHead>Last Modified</TableHead>
@@ -119,8 +120,9 @@ const GalleryHome = ({ currentUser }) => {
             {gallery.map((gallery, idx) => (
               <TableRow key={gallery.id}>
                 <TableCell className="font-medium">{idx + 1}</TableCell>
-                <TableCell>{gallery.image}</TableCell>
+                <TableCell>{gallery.image_url || "N/A"} images</TableCell>
                 <TableCell>{gallery.title || "N/A"}</TableCell>
+                <TableCell>{gallery.description || "N/A"}</TableCell>
                 <TableCell>{gallery.services}</TableCell>
                 <TableCell>
                   {format(new Date(gallery.created_at), "dd MMM yyyy, hh:mm a")}

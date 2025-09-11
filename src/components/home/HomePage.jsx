@@ -99,7 +99,7 @@ const HomePage = () => {
           </CardContent>
         </Card>
 
-        <Card className="bg-secondary/30 flex flex-col items-center justify-center p-6 transition-all duration-300">
+        <Card className="flex flex-col items-center justify-center p-6 transition-all duration-300">
           <div className="flex flex-col items-center gap-4 text-center">
             <div className="bg-primary/10 rounded-full p-3">
               <Lock className="text-primary h-8 w-8" />

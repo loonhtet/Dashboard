@@ -38,10 +38,11 @@ const ServicesHome = ({ currentUser }) => {
 
     try {
       const response = await getAllServices(search);
-      setServices(response.data);
+      setServices(response?.data ?? []);
     } catch (error) {
       toast.error(error.message);
       setIsError(true);
+      setServices([]);
     } finally {
       setIsLoading(false);
     }
@@ -103,8 +104,7 @@ const ServicesHome = ({ currentUser }) => {
             <TableHead className="w-[100px]">Id</TableHead>
             <TableHead>Title</TableHead>
             <TableHead>Description</TableHead>
-            <TableHead>Slug</TableHead>
-            <TableHead>Gallery</TableHead>
+            <TableHead>Image</TableHead>
             <TableHead>Creation Date</TableHead>
             <TableHead>Last Modified</TableHead>
             <TableHead className="text-right">Actions</TableHead>
@@ -114,7 +114,7 @@ const ServicesHome = ({ currentUser }) => {
           <LoadingTableResult col={8} />
         ) : isError ? (
           <EmptyTableResult col={8} />
-        ) : services.length === 0 ? (
+        ) : (services?.length ?? 0) === 0 ? (
           <EmptyTableResult col={6} />
         ) : (
           <TableBody>
@@ -123,8 +123,7 @@ const ServicesHome = ({ currentUser }) => {
                 <TableCell className="font-medium">{idx + 1}</TableCell>
                 <TableCell>{service.title}</TableCell>
                 <TableCell>{service.description || "N/A"}</TableCell>
-                <TableCell>{service.slug}</TableCell>
-                <TableCell>{service.gallery?.length || 0} images</TableCell>
+                <TableCell>{service.image_url || "N/A"} images</TableCell>
                 <TableCell>
                   {format(new Date(service.created_at), "dd MMM yyyy, hh:mm a")}
                 </TableCell>

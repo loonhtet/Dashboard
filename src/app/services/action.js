@@ -34,45 +34,6 @@ export async function getAllServices(search = "") {
   }
 }
 
-export async function createService({ title, description, currentUser }) {
-  try {
-    const slug = slugify(title, {
-      lower: true,
-      strict: true,
-      locale: "en",
-    });
-
-    const newService = await prisma.services.create({
-      data: {
-        title,
-        description,
-        slug,
-      },
-    });
-
-    await addAuditLog({
-      user_name: currentUser?.name || null,
-      user_email: currentUser?.email || null,
-      actionType: "CREATE",
-      targetType: "service",
-      targetId: newService.id,
-      description: `Service created: ${title}`,
-    });
-
-    return {
-      success: true,
-      message: "Service created successfully.",
-      data: newService,
-    };
-  } catch (error) {
-    console.error(error);
-    return {
-      success: false,
-      message:
-        "Could not create service. Check your connection or contact support.",
-    };
-  }
-}
 
 export async function deleteService(id, currentUser) {
   try {

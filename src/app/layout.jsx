@@ -20,7 +20,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${beVietnam.className} dark antialiased`}>
+      <body className={`${beVietnam.className}  antialiased`}>
         <Suspense fallback={<Loading />}>
           <NextTopLoader color="#FFFFFF" showSpinner={false} />
           {children}

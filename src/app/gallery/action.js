@@ -33,39 +33,46 @@ export async function getAllGallery(search = "") {
   }
 }
 
-export async function createGallery({ title, image_url, serviceId, currentUser }) {
-  try {
-    const newGallery = await prisma.gallery.create({
-      data: {
-        title,
-        image_url,
-        serviceId,
-      },
-    });
+// export async function createGallery({
+//   title,
+//   description,
+//   image_url,
+//   serviceId,
+//   currentUser,
+// }) {
+//   try {
+//     const newGallery = await prisma.gallery.create({
+//       data: {
+//         title,
+//         description,
+//         image_url,
+//         serviceId,
+//       },
+//     });
 
-    await addAuditLog({
-      user_name: currentUser.name || null,
-      user_email: currentUser.email || null,
-      actionType: "CREATE",
-      targetType: "gallery",
-      targetId: newGallery.id,
-      description: `Gallery item created: ${title}`,
-    });
+//     await addAuditLog({
+//       user_name: currentUser.name || null,
+//       user_email: currentUser.email || null,
+//       actionType: "CREATE",
+//       targetType: "gallery",
+//       targetId: newGallery.id,
+//       description: `Gallery item created: ${title}`,
+//     });
 
-    return {
-      success: true,
-      message: "Gallery item created successfully.",
-      data: newGallery,
-    };
-  } catch (error) {
-    console.error(error);
-    return {
-      success: false,
-      message:
-        "Could not create gallery item. Check your connection or contact support.",
-    };
-  }
-}
+//     return {
+//       success: true,
+//       message: "Gallery item created successfully.",
+//       data: newGallery,
+//     };
+//   } catch (error) {
+//     console.error(error);
+//     return {
+//       success: false,
+//       message:
+//         "Could not create gallery item. Check your connection or contact support.",
+//     };
+//   }
+// }
 
 export async function deleteGallery(id, currentUser) {
   try {
@@ -96,8 +103,14 @@ export async function deleteGallery(id, currentUser) {
   }
 }
 
-
-export async function updateGallery({ id, title, image_url, serviceId, currentUser }) {
+export async function updateGallery({
+  id,
+  title,
+  description,
+  image_url,
+  serviceId,
+  currentUser,
+}) {
   try {
     const gallery = await prisma.gallery.findUnique({ where: { id } });
     if (!gallery) {
@@ -108,6 +121,7 @@ export async function updateGallery({ id, title, image_url, serviceId, currentUs
       where: { id },
       data: {
         title,
+        description,
         image_url,
         serviceId,
       },
