@@ -93,7 +93,7 @@ export function AppSidebar({ name }) {
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Dashboard</SidebarGroupLabel>
+          <SidebarGroupLabel>Beauty Society's Dashboard</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) =>

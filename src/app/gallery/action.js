@@ -33,46 +33,6 @@ export async function getAllGallery(search = "") {
   }
 }
 
-// export async function createGallery({
-//   title,
-//   description,
-//   image_url,
-//   serviceId,
-//   currentUser,
-// }) {
-//   try {
-//     const newGallery = await prisma.gallery.create({
-//       data: {
-//         title,
-//         description,
-//         image_url,
-//         serviceId,
-//       },
-//     });
-
-//     await addAuditLog({
-//       user_name: currentUser.name || null,
-//       user_email: currentUser.email || null,
-//       actionType: "CREATE",
-//       targetType: "gallery",
-//       targetId: newGallery.id,
-//       description: `Gallery item created: ${title}`,
-//     });
-
-//     return {
-//       success: true,
-//       message: "Gallery item created successfully.",
-//       data: newGallery,
-//     };
-//   } catch (error) {
-//     console.error(error);
-//     return {
-//       success: false,
-//       message:
-//         "Could not create gallery item. Check your connection or contact support.",
-//     };
-//   }
-// }
 
 export async function deleteGallery(id, currentUser) {
   try {

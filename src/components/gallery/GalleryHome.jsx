@@ -132,8 +132,8 @@ const GalleryHome = ({ currentUser }) => {
                 </TableCell>
 
                 <TableCell className="space-x-2 text-right">
-                  <Link href={`/app/gallery/${gallery.slug}/update`}>
-                    <Button variant={"secondary"}>Update</Button>
+                  <Link href={`/app/gallery/${gallery.id}/update-gallery`}>
+                    <Button variant="secondary">Update</Button>
                   </Link>
 
                   <DialogBox

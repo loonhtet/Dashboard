@@ -1,15 +1,20 @@
+import { getCurrentUser } from "@/app/action";
+import UpdateGallery from "@/components/gallery/UpdateGallery";
 import WebLayout from "@/components/layouts/WebLayout";
-import { getCurrentUser } from "../action";
-import GalleryHome from "@/components/gallery/GalleryHome";
+import { getGalleryById } from "./[id]/update-gallery/action";
 
-const page = async () => {
+
+const Page = async ({ params }) => {
+  const { id } = params; // matches folder name [id]
+
   const currentUser = await getCurrentUser();
+  const gallery = await getGalleryById(id);
 
   return (
     <WebLayout>
-      <GalleryHome currentUser={currentUser} />
+      <UpdateGallery gallery={gallery?.data} currentUser={currentUser} />
     </WebLayout>
   );
 };
 
-export default page;
+export default Page;
