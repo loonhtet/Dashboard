@@ -33,7 +33,7 @@ export async function loginUser({ email, password }) {
         path: "/",
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        maxAge: 60,
+        maxAge: 60 * 60,
       },
     );
 

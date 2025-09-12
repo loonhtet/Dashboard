@@ -6,7 +6,7 @@ import {
   SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
+  SidebarGroupLabel, // This component is perfect for groupName
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -38,6 +38,7 @@ import {
   FileText,
   Layers2,
   CalendarCheck2,
+  Globe,
 } from "lucide-react";
 
 const icons = {
@@ -52,11 +53,12 @@ const icons = {
   FileText: FileText,
   Layers2: Layers2,
   CalendarCheck2: CalendarCheck2,
+  Globe: Globe,
 };
 
 import Link from "next/link";
 
-import items from "@/constant/SideBar.json";
+import groups from "@/constant/SideBar.json"; // Renamed 'items' to 'groups'
 import { changePassword, signOut } from "@/app/action";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "../ui/dialog";
 import { Button } from "../ui/button";
@@ -64,6 +66,7 @@ import { useState } from "react";
 import InputBox from "../ui/InputBox";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { Separator } from "../ui/separator";
 
 export function AppSidebar({ name }) {
   const [openDialog, setOpenDialog] = useState(false);
@@ -91,67 +94,75 @@ export function AppSidebar({ name }) {
 
   return (
     <Sidebar>
-      <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel>Dashboard</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {items.map((item) =>
-                item.collapsible ? (
-                  <Collapsible key={item.title} className="group/collapsible">
-                    <SidebarMenuItem>
-                      <CollapsibleTrigger asChild>
-                        <SidebarMenuButton className="flex w-full items-center justify-between px-3 py-5.5">
-                          <div className="flex items-center gap-2">
-                            {item.icon &&
-                              (() => {
-                                const Icon = icons[item.icon];
-                                return Icon ? (
-                                  <Icon className="h-4 w-4" />
-                                ) : null;
-                              })()}
-                            <span>{item.title}</span>
-                          </div>
-                          <ChevronDown className="h-4 w-4 transition-transform group-data-[state=open]/collapsible:rotate-180" />
-                        </SidebarMenuButton>
-                      </CollapsibleTrigger>
+      <div className="border-b px-4 py-3">
+        <h1 className="text-md text-primary font-semibold">Dashboard</h1>
+      </div>
+      <SidebarContent className="gap-0">
+        {groups.map((group, groupIndex) => (
+          <SidebarGroup key={group.groupName}>
+            <SidebarGroupLabel>{group.groupName}</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {group.links.map((item) =>
+                  item.collapsible ? (
+                    <Collapsible key={item.title} className="group/collapsible">
+                      <SidebarMenuItem>
+                        <CollapsibleTrigger asChild>
+                          <SidebarMenuButton className="flex w-full items-center justify-between px-3 py-5.5">
+                            <div className="flex items-center gap-2">
+                              {item.icon &&
+                                (() => {
+                                  const Icon = icons[item.icon];
+                                  return Icon ? (
+                                    <Icon className="h-4 w-4" />
+                                  ) : null;
+                                })()}
+                              <span>{item.title}</span>
+                            </div>
+                            <ChevronDown className="h-4 w-4 transition-transform group-data-[state=open]/collapsible:rotate-180" />
+                          </SidebarMenuButton>
+                        </CollapsibleTrigger>
 
-                      <CollapsibleContent>
-                        <SidebarMenuSub>
-                          {item.children?.map((sub) => (
-                            <SidebarMenuSubItem key={sub.title} asChild>
-                              <Link href={sub.url} className="w-full">
-                                <SidebarMenuButton className="cursor-pointer px-3 py-5.5">
-                                  {sub.title}
-                                </SidebarMenuButton>
-                              </Link>
-                            </SidebarMenuSubItem>
-                          ))}
-                        </SidebarMenuSub>
-                      </CollapsibleContent>
+                        <CollapsibleContent>
+                          <SidebarMenuSub>
+                            {item.children?.map((sub) => (
+                              <SidebarMenuSubItem key={sub.title} asChild>
+                                <Link href={sub.url} className="w-full">
+                                  <SidebarMenuButton className="cursor-pointer px-3 py-5.5">
+                                    {sub.title}
+                                  </SidebarMenuButton>
+                                </Link>
+                              </SidebarMenuSubItem>
+                            ))}
+                          </SidebarMenuSub>
+                        </CollapsibleContent>
+                      </SidebarMenuItem>
+                    </Collapsible>
+                  ) : (
+                    <SidebarMenuItem key={item.title}>
+                      <SidebarMenuButton asChild>
+                        <Link
+                          href={item.url}
+                          className="flex items-center gap-2 px-3 py-5.5"
+                        >
+                          {item.icon &&
+                            (() => {
+                              const Icon = icons[item.icon];
+                              return Icon ? <Icon className="h-4 w-4" /> : null;
+                            })()}
+                          <span>{item.title}</span>
+                        </Link>
+                      </SidebarMenuButton>
                     </SidebarMenuItem>
-                  </Collapsible>
-                ) : (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild>
-                      <Link
-                        href={item.url}
-                        className="flex items-center gap-2 px-3 py-5.5"
-                      >
-                        {item.icon &&
-                          (() => {
-                            const Icon = icons[item.icon];
-                            return Icon ? <Icon className="h-4 w-4" /> : null;
-                          })()}
-                        <span>{item.title}</span>
-                      </Link>
-                    </SidebarMenuButton>
-                  </SidebarMenuItem>
-                ),
-              )}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
+                  ),
+                )}
+              </SidebarMenu>
+            </SidebarGroupContent>
+            {groupIndex < groups.length - 1 && (
+              <Separator className="mt-3 mb-2" />
+            )}
+          </SidebarGroup>
+        ))}
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>

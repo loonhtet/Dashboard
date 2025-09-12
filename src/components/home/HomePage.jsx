@@ -32,7 +32,11 @@ import quickLinks from "@/constant/QuickLinks.json";
 import { Dialog, DialogTrigger } from "../ui/dialog";
 import { Button } from "../ui/button";
 import SecretDialogForm from "./SecretDialogForm";
-import { getBookingsByMonth } from "@/app/action";
+import {
+  getBookingsByMonth,
+  getTotalBlogs,
+  getTotalBookings,
+} from "@/app/action";
 import { Separator } from "../ui/separator";
 
 const chartConfig = {
@@ -45,12 +49,21 @@ const chartConfig = {
 const HomePage = () => {
   const [chartData, setChartData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [totalBookings, setTotalBookings] = useState(0);
+  const [totalBlogs, setTotalBlogs] = useState(0);
 
   useEffect(() => {
     async function fetchData() {
       setIsLoading(true);
-      const data = await getBookingsByMonth();
-      setChartData(data);
+
+      const [bookingsData, bookingsCountRes, blogsCountRes] = await Promise.all(
+        [getBookingsByMonth(), getTotalBookings(), getTotalBlogs()],
+      );
+
+      setChartData(bookingsData);
+      setTotalBookings(bookingsCountRes.data);
+      setTotalBlogs(blogsCountRes.data);
+
       setIsLoading(false);
     }
     fetchData();
@@ -69,9 +82,6 @@ const HomePage = () => {
           </CardHeader>
           <CardContent className="mt-auto">
             <div className="mb-1 text-4xl font-bold">12,345</div>
-            <p className="text-muted-foreground text-xs">
-              Trending up this month
-            </p>
           </CardContent>
         </Card>
 
@@ -83,8 +93,9 @@ const HomePage = () => {
             <ClipboardList className="text-indigo-500" size={24} />
           </CardHeader>
           <CardContent className="mt-auto">
-            <div className="mb-1 text-4xl font-bold">534</div>
-            <p className="text-muted-foreground text-xs">Up 8% this period</p>
+            <div className="mb-1 text-4xl font-bold">
+              {isLoading ? "..." : totalBookings}
+            </div>
           </CardContent>
         </Card>
 
@@ -94,8 +105,9 @@ const HomePage = () => {
             <Book className="text-teal-500" size={24} />
           </CardHeader>
           <CardContent className="mt-auto">
-            <div className="mb-1 text-4xl font-bold">48</div>
-            <p className="text-muted-foreground text-xs">Updated weekly</p>
+            <div className="mb-1 text-4xl font-bold">
+              {isLoading ? "..." : totalBlogs}
+            </div>
           </CardContent>
         </Card>
 
