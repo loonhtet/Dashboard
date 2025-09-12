@@ -29,7 +29,6 @@ export async function createAdmin({
       },
     });
 
-    // Add audit log record
     await addAuditLog({
       user_name: currentUser.name || null,
       user_email: currentUser.email || null,
@@ -39,10 +38,16 @@ export async function createAdmin({
       description: `Admin created: ${name} (${email})`,
     });
 
-    return newUser;
+    return {
+      success: true,
+      message: Messages.action.create.success(`${name}`),
+    };
   } catch (error) {
     console.error(error);
-    throw new Error("Admin create failed");
+    return {
+      success: false,
+      message: Messages.action.create.error(`${name}`),
+    };
   }
 }
 
@@ -70,13 +75,13 @@ export async function sendOtp(email) {
 
     const emailSent = await sendVerificationEmail(email, otp);
     if (!emailSent) {
-      throw new Error("The email provider failed to send the OTP.");
+      return { success: false, message: Messages.otp.send.providerError };
     }
 
-    return { success: true, message: "OTP sent successfully." };
+    return { success: true, message: Messages.otp.send.success };
   } catch (error) {
-    console.error("Error in sendOtp function:", error);
-    return { success: false, message: "Failed to send OTP." };
+    console.error(error);
+    return { success: false, message: Messages.otp.send.error };
   }
 }
 
@@ -90,13 +95,13 @@ export async function verifyOtp(email, otp) {
     });
 
     if (!otpRecord) {
-      return { success: false, message: "Invalid OTP." };
+      return { success: false, message: Messages.otp.verify.invalid };
     }
 
     if (new Date() > new Date(otpRecord.expires_at)) {
       return {
         success: false,
-        message: "OTP has expired. Please request a new one.",
+        message: Messages.otp.verify.expired,
       };
     }
 
@@ -106,10 +111,10 @@ export async function verifyOtp(email, otp) {
 
     return { success: true, message: "Email has been verified successfully!" };
   } catch (error) {
-    console.error("Error during OTP verification:", error);
+    console.error(error);
     return {
       success: false,
-      message: "An unexpected error occurred. Please try again.",
+      message: Messages.otp.verify.error,
     };
   }
 }

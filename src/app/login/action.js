@@ -3,6 +3,7 @@
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcrypt";
 import { cookies } from "next/headers";
+import { deleteOldAuditLogs } from "../audit-log/action";
 
 export async function loginUser({ email, password }) {
   try {
@@ -15,13 +16,12 @@ export async function loginUser({ email, password }) {
     }
 
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
-
     if (!isPasswordCorrect) {
       return { success: false, message: "Incorrect password." };
     }
 
-    // Set cookie
-    cookies().set(
+    const cookieStore = await cookies();
+    cookieStore.set(
       "currentUser",
       JSON.stringify({
         id: user.id,
@@ -33,9 +33,11 @@ export async function loginUser({ email, password }) {
         path: "/",
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        maxAge: 60 * 60, // Expire in 1 hour
+        maxAge: 60 * 60,
       },
     );
+
+    await deleteOldAuditLogs();
 
     return { success: true, message: "Login successful.", user };
   } catch (error) {

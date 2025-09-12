@@ -1,5 +1,6 @@
 "use server";
 
+import { Messages } from "@/lib/message";
 import { prisma } from "@/lib/prisma";
 
 export async function getAuditLogs({ date, actionType }) {
@@ -31,13 +32,33 @@ export async function getAuditLogs({ date, actionType }) {
     return {
       data: logs,
       success: true,
-      message: "Audit log data successfully loaded.",
+      message: Messages.action.fetch.success("Audit Log"),
     };
   } catch (error) {
     console.error(error);
     return {
       success: false,
-      message: "Could not fetch audit log data.",
+      message: Messages.action.fetch.error("Audit Log"),
     };
+  }
+}
+
+export async function deleteOldAuditLogs() {
+  try {
+    const oneMonthAgo = new Date();
+    oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 3);
+
+    const result = await prisma.audit_logs.deleteMany({
+      where: {
+        timestamp: {
+          lt: oneMonthAgo,
+        },
+      },
+    });
+
+    return { success: true, data: result.count };
+  } catch (error) {
+    console.error(error);
+    return { success: false };
   }
 }

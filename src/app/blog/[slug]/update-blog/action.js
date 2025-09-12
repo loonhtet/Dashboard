@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { uploadToR2 } from "@/lib/r2";
 import { addAuditLog } from "@/app/action";
 import slugify from "slugify";
+import { Messages } from "@/lib/message";
 
 export async function getBlogBySlug(slug) {
   try {
@@ -12,13 +13,23 @@ export async function getBlogBySlug(slug) {
     });
 
     if (!blog) {
-      return { success: false, message: "Blog not found" };
+      return {
+        success: false,
+        message: Messages.action.fetch.error(`${slug} blog`),
+      };
     }
 
-    return { success: true, data: blog };
+    return {
+      success: true,
+      data: blog,
+      message: Messages.action.fetch.success(`${slug} blog`),
+    };
   } catch (error) {
-    console.error("Get blog by slug error:", error);
-    return { success: false, message: "Failed to fetch blog" };
+    console.error(error);
+    return {
+      success: false,
+      message: Messages.action.fetch.error(`${slug} blog`),
+    };
   }
 }
 
@@ -54,21 +65,24 @@ export async function updateBlog({
     });
 
     await addAuditLog({
-      action: "UPDATE_BLOG",
-      userId: currentUser?.id,
-      details: `Updated blog: ${updatedBlog.title}`,
+      user_name: currentUser?.name || null,
+      user_email: currentUser?.email || null,
+      actionType: "UPDATE",
+      targetType: "blog",
+      targetId: updatedBlog.id,
+      description: `Blog updated: ${updatedBlog.title}`,
     });
 
     return {
       success: true,
-      message: "Blog updated successfully!",
+      message: Messages.action.update.success("Blog"),
       data: updatedBlog,
     };
   } catch (error) {
-    console.error("Update blog error:", error);
+    console.error(error);
     return {
       success: false,
-      message: error.message || "Failed to update blog",
+      message: Messages.action.update.error("Blog"),
     };
   }
 }
@@ -77,13 +91,16 @@ export async function getAllCategories() {
   try {
     const categories = await prisma.categories.findMany();
 
-    return { success: true, data: categories };
+    return {
+      success: true,
+      data: categories,
+      message: Messages.action.fetch.success("Category"),
+    };
   } catch (error) {
     console.error("Error fetching categories:", error);
     return {
       success: false,
-      message:
-        "Could not fetch categories. Check your connection or contact support.",
+      message: Messages.action.fetch.error("Category"),
     };
   }
 }

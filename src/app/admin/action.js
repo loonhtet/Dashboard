@@ -2,6 +2,7 @@
 
 import { prisma } from "@/lib/prisma";
 import { addAuditLog } from "../action";
+import { Messages } from "@/lib/message";
 
 export async function getAllAdmins(search) {
   try {
@@ -19,14 +20,13 @@ export async function getAllAdmins(search) {
     return {
       data: admins,
       success: true,
-      message: "Admin data fetched.",
+      message: Messages.action.fetch.success("Admin"),
     };
   } catch (error) {
     console.error(error);
     return {
       success: false,
-      message:
-        "Could not fetch admin data. Check your connection or contact support.",
+      message: Messages.action.fetch.error("Admin"),
     };
   }
 }
@@ -46,13 +46,12 @@ export async function deleteAdmin(id, currentUser) {
       description: `Admin deleted: ${user?.name} (${user?.email})`,
     });
 
-    return { success: true, message: "Admin account successfully deleted." };
+    return { success: true, message: Messages.action.delete.success("Admin") };
   } catch (error) {
     console.error(error);
     return {
       success: false,
-      message:
-        "Could not delete admin account. Check your connection or contact support.",
+      message: Messages.action.delete.error("Admin"),
     };
   }
 }

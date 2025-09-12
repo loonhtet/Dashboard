@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import bcrypt from "bcrypt";
 import { prisma } from "@/lib/prisma";
+import { Messages } from "@/lib/message";
 
 export async function signOut() {
   const cookieStore = cookies();
@@ -144,4 +145,40 @@ export async function getBookingsByMonth() {
     month,
     bookings: grouped[month],
   }));
+}
+
+export async function getTotalBookings() {
+  try {
+    const count = await prisma.bookings.count();
+    return {
+      data: count,
+      success: true,
+      message: Messages.action.fetch.success("Total Bookings"),
+    };
+  } catch (error) {
+    console.error("Error fetching booking count:", error);
+    return {
+      data: 0,
+      success: false,
+      message: Messages.action.fetch.error("Total Bookings"),
+    };
+  }
+}
+
+export async function getTotalBlogs() {
+  try {
+    const count = await prisma.blogs.count();
+    return {
+      data: count,
+      success: true,
+      message: Messages.action.fetch.success("Total Blogs"),
+    };
+  } catch (error) {
+    console.error("Error fetching blog count:", error);
+    return {
+      data: 0,
+      success: false,
+      message: Messages.action.fetch.error("Total Blogs"),
+    };
+  }
 }

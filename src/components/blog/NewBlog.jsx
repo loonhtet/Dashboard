@@ -16,6 +16,7 @@ import ComboBox from "../ui/ComboBox";
 import RichTextEditorToolbar from "../ui/RichTextEditorToolbar";
 import RichTextEditorContent from "../ui/RichTextEditorContent";
 import { createBlog, getAllCategories } from "@/app/blog/new-blog/action";
+import { Loader2 } from "lucide-react";
 
 const NewBlog = ({ currentUser }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -38,7 +39,8 @@ const NewBlog = ({ currentUser }) => {
     },
   });
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmittingDraft, setIsSubmittingDraft] = useState(false);
+  const [isSubmittingPublish, setIsSubmittingPublish] = useState(false);
 
   const editor = useEditor({
     extensions: [
@@ -101,8 +103,12 @@ const NewBlog = ({ currentUser }) => {
     [editor],
   );
 
-  const onSubmit = async (data) => {
-    setIsSubmitting(true);
+  const onSubmit = async (data, isPublished = false) => {
+    if (isPublished) {
+      setIsSubmittingPublish(true);
+    } else {
+      setIsSubmittingDraft(true);
+    }
 
     try {
       const payload = {
@@ -112,6 +118,7 @@ const NewBlog = ({ currentUser }) => {
         content: data.content,
         categoryId: data.category,
         currentUser: currentUser,
+        published: isPublished,
       };
 
       console.log(payload);
@@ -128,7 +135,11 @@ const NewBlog = ({ currentUser }) => {
     } catch (err) {
       toast.error(err.message);
     } finally {
-      setIsSubmitting(false);
+      if (isPublished) {
+        setIsSubmittingPublish(false);
+      } else {
+        setIsSubmittingDraft(false);
+      }
     }
   };
 
@@ -141,14 +152,24 @@ const NewBlog = ({ currentUser }) => {
       <header className="mb-6 flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
         <h1 className="text-2xl font-bold">New Blog</h1>
         <div className="space-x-2">
-          <Button variant="secondary" disabled={isSubmitting}>
+          <Button
+            variant="secondary"
+            onClick={handleSubmit((data) => onSubmit(data, false))}
+            disabled={isSubmittingDraft || isSubmittingPublish}
+          >
+            {isSubmittingDraft && (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            )}
             Draft
           </Button>
           <Button
             variant="default"
-            onClick={handleSubmit(onSubmit)}
-            disabled={isSubmitting}
+            onClick={handleSubmit((data) => onSubmit(data, true))}
+            disabled={isSubmittingDraft || isSubmittingPublish}
           >
+            {isSubmittingPublish && (
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            )}
             Publish
           </Button>
         </div>

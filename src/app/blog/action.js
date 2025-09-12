@@ -3,6 +3,7 @@
 import { prisma } from "@/lib/prisma";
 import { addAuditLog } from "../action";
 import slugify from "slugify";
+import { Messages } from "@/lib/message";
 
 export async function getAllBlogs(search = "") {
   try {
@@ -15,18 +16,24 @@ export async function getAllBlogs(search = "") {
             },
           }
         : {},
+      include: {
+        category: true,
+      },
       orderBy: {
         created_at: "desc",
       },
     });
 
-    return { success: true, data: blogs };
+    return {
+      success: true,
+      message: Messages.action.fetch.success("Blogs"),
+      data: blogs,
+    };
   } catch (error) {
     console.error("Error fetching blogs:", error);
     return {
       success: false,
-      message:
-        "Could not fetch blogs. Check your connection or contact support.",
+      message: Messages.action.fetch.error("Blogs"),
     };
   }
 }
@@ -49,60 +56,33 @@ export async function deleteBlog(id, currentUser) {
       description: `Blog deleted: ${blog?.title}`,
     });
 
-    return { success: true, message: "Blog successfully deleted." };
+    return { success: true, message: Messages.action.delete.success("Blog") };
   } catch (error) {
     console.error(error);
     return {
       success: false,
-      message:
-        "Could not delete blog. Check your connection or contact support.",
+      message: Messages.action.delete.error("Blog"),
     };
   }
 }
 
-export async function updateBlog({
-  id,
-  title,
-  content,
-  published,
-  categoryId,
-  currentUser,
-}) {
+export async function updateBlogStatus(id, published) {
   try {
-    const blog = await prisma.blogs.findUnique({ where: { id } });
-    if (!blog) {
-      return { success: false, message: "Blog not found." };
-    }
-
-    await prisma.blogs.update({
+    const updated = await prisma.blogs.update({
       where: { id },
-      data: {
-        title,
-        content,
-        published,
-        categoryId,
-      },
-    });
-
-    await addAuditLog({
-      user_name: currentUser.name || null,
-      user_email: currentUser.email || null,
-      actionType: "UPDATE",
-      targetType: "blog",
-      targetId: id,
-      description: `Blog updated: ${title}`,
+      data: { published },
     });
 
     return {
       success: true,
-      message: "Blog updated successfully.",
+      message: Messages.action.update.success("Blog Status"),
+      data: updated,
     };
   } catch (error) {
     console.error(error);
     return {
       success: false,
-      message:
-        "Could not update blog. Check your connection or contact support.",
+      message: Messages.action.update.error("Blog Status"),
     };
   }
 }

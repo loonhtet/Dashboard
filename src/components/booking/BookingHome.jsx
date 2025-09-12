@@ -52,6 +52,7 @@ const BookingHome = ({ currentUser }) => {
       if (response.pagination) {
         setPagination(response.pagination);
       }
+      toast.success(response.message);
     } catch (error) {
       toast.error(error.message);
       setIsError(true);

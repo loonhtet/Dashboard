@@ -40,6 +40,7 @@ const AdminHome = ({ currentUser }) => {
     try {
       const response = await getAllAdmins(search);
       setAdmins(response.data);
+      toast.success(response.message);
     } catch (error) {
       toast.error(error.message);
       setIsError(true);

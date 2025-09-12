@@ -1,63 +1,75 @@
 [
   {
-    "title": "Home",
-    "url": "/",
-    "icon": "House"
-  },
-  {
-    "title": "Booking",
-    "url": "/booking",
-    "icon": "CalendarCheck2"
-  },
-  {
-    "title": "Blog",
-    "collapsible": true,
-    "icon": "FileText",
-    "children": [
-      { "title": "All Blog", "url": "/blog" },
-      { "title": "New Blog", "url": "/blog/new-blog" }
+    "groupName": "MAIN NAVIGATION",
+    "links": [
+      {
+        "title": "Home",
+        "url": "/",
+        "icon": "House"
+      },
+      {
+        "title": "Booking",
+        "url": "/booking",
+        "icon": "CalendarCheck2"
+      }
     ]
   },
   {
-    "title": "Gallery",
-    "collapsible": true,
-    "icon": "FileText",
-    "children": [
-      { "title": "All Gallery", "url": "/gallery" },
-      { "title": "New Gallery", "url": "/gallery/new-gallery" }
+    "groupName": "CONTENT MANAGEMENT",
+    "links": [
+      {
+        "title": "Blog",
+        "collapsible": true,
+        "icon": "FileText",
+        "children": [
+          { "title": "All Blog", "url": "/blog" },
+          { "title": "New Blog", "url": "/blog/new-blog" }
+        ]
+      },
+      {
+        "title": "Category",
+        "url": "/category",
+        "icon": "Layers2"
+      }
     ]
   },
   {
-    "title": "Services",
-    "collapsible": true,
-    "icon": "FileText",
-    "children": [
-      { "title": "All Services", "url": "/services" },
-      { "title": "New Services", "url": "/services/new-services" }
+    "groupName": "ADMINISTRATION",
+    "links": [
+      {
+        "title": "Admin",
+        "collapsible": true,
+        "icon": "ShieldUser",
+        "children": [
+          { "title": "All Admin", "url": "/admin" },
+          { "title": "New Admin", "url": "/admin/new-admin" }
+        ]
+      },
+      {
+        "title": "Website Management",
+        "collapsible": true,
+        "icon": "Globe",
+        "children": [
+          { "title": "Home Page", "url": "/admin/new-admin" },
+          { "title": "Contact Info", "url": "/admin" },
+          { "title": "Testimonial", "url": "/admin" }
+        ]
+      }
     ]
   },
   {
-    "title": "Category",
-    "url": "/category",
-    "icon": "Layers2"
-  },
-  {
-    "title": "Admin",
-    "collapsible": true,
-    "icon": "ShieldUser",
-    "children": [
-      { "title": "All Admin", "url": "/admin" },
-      { "title": "New Admin", "url": "/admin/new-admin" }
+    "groupName": "SYSTEM",
+    "links": [
+      {
+        "title": "Audit Log",
+        "url": "/audit-log",
+        "icon": "FileClock"
+      },
+      {
+        "title": "Help",
+        "url": "/help",
+        "icon": "BadgeInfo"
+      }
     ]
-  },
-  {
-    "title": "Audit Log",
-    "url": "/audit-log",
-    "icon": "FileClock"
-  },
-  {
-    "title": "Help",
-    "url": "/help",
-    "icon": "BadgeInfo"
   }
 ]

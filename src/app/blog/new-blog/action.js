@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import slugify from "slugify";
 import { uploadToR2 } from "@/lib/r2";
 import { addAuditLog } from "@/app/action";
+import { Messages } from "@/lib/message";
 
 export async function createBlog({
   thumbnail,
@@ -53,15 +54,14 @@ export async function createBlog({
 
     return {
       success: true,
-      message: "Blog created successfully.",
+      message: Messages.action.create.success("Blog"),
       data: newBlog,
     };
   } catch (error) {
     console.error(error);
     return {
       success: false,
-      message:
-        "Could not create Blog. Check your connection or contact support.",
+      message: Messages.action.create.error("Blog"),
     };
   }
 }
@@ -70,13 +70,16 @@ export async function getAllCategories() {
   try {
     const categories = await prisma.categories.findMany();
 
-    return { success: true, data: categories };
+    return {
+      success: true,
+      data: categories,
+      message: Messages.action.fetch.success("Category"),
+    };
   } catch (error) {
     console.error("Error fetching categories:", error);
     return {
       success: false,
-      message:
-        "Could not fetch categories. Check your connection or contact support.",
+      message: Messages.action.fetch.error("Category"),
     };
   }
 }

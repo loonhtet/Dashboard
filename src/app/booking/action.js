@@ -2,6 +2,7 @@
 
 import { prisma } from "@/lib/prisma";
 import { addAuditLog } from "../action";
+import { Messages } from "@/lib/message";
 
 export async function getAllBookings(search, page = 1, pageSize = 10) {
   try {
@@ -35,7 +36,7 @@ export async function getAllBookings(search, page = 1, pageSize = 10) {
     return {
       data: bookings,
       success: true,
-      message: "Bookings data fetched.",
+      message: Messages.action.fetch.success("Booking"),
       pagination: {
         totalItems: totalBookings,
         currentPage: page,
@@ -47,8 +48,7 @@ export async function getAllBookings(search, page = 1, pageSize = 10) {
     console.error(error);
     return {
       success: false,
-      message:
-        "Could not fetch bookings data. Check your connection or contact support.",
+      message: Messages.action.fetch.error("Booking"),
     };
   }
 }
@@ -58,7 +58,10 @@ export async function deleteBooking(id, currentUser) {
     const booking = await prisma.bookings.findUnique({ where: { id } });
 
     if (!booking) {
-      return { success: false, message: "Booking not found." };
+      return {
+        success: false,
+        message: Messages.action.fetch.error("Booking"),
+      };
     }
 
     await prisma.bookings.delete({ where: { id } });
@@ -72,13 +75,12 @@ export async function deleteBooking(id, currentUser) {
       description: `Booking deleted: ${booking.full_name} (${booking.email_address})`,
     });
 
-    return { success: true, message: "Booking successfully deleted." };
+    return { success: true, message: Messages.action.delete.error("Booking") };
   } catch (error) {
     console.error(error);
     return {
       success: false,
-      message:
-        "Could not delete booking. Check your connection or contact support.",
+      message: Messages.action.delete.error("Booking"),
     };
   }
 }
@@ -88,7 +90,6 @@ export async function deleteOldBookings(currentUser) {
     const oneMonthAgo = new Date();
     oneMonthAgo.setMonth(oneMonthAgo.getMonth() - 1);
 
-    // Find old bookings
     const oldBookings = await prisma.bookings.findMany({
       where: {
         created_at: { lt: oneMonthAgo },
@@ -118,14 +119,17 @@ export async function deleteOldBookings(currentUser) {
 
     return {
       success: true,
-      message: `${oldBookings.length} old bookings deleted successfully.`,
+      message: Messages.action.delete.success(
+        `${oldBookings.length} old bookings`,
+      ),
     };
   } catch (error) {
     console.error(error);
     return {
       success: false,
-      message:
-        "Could not delete old bookings. Check your connection or contact support.",
+      message: Messages.action.delete.error(
+        `${oldBookings.length} old bookings`,
+      ),
     };
   }
 }

@@ -3,6 +3,7 @@
 import { prisma } from "@/lib/prisma";
 import { addAuditLog } from "../action";
 import slugify from "slugify";
+import { Messages } from "@/lib/message";
 
 export async function getAllCategories(search = "") {
   try {
@@ -20,13 +21,16 @@ export async function getAllCategories(search = "") {
       },
     });
 
-    return { success: true, data: categories };
+    return {
+      success: true,
+      data: categories,
+      message: Messages.action.fetch.success("Category"),
+    };
   } catch (error) {
-    console.error("Error fetching categories:", error);
+    console.error(error);
     return {
       success: false,
-      message:
-        "Could not fetch categories. Check your connection or contact support.",
+      message: Messages.action.fetch.error("Category"),
     };
   }
 }
@@ -57,15 +61,14 @@ export async function createCategory({ name, currentUser }) {
 
     return {
       success: true,
-      message: "Category created successfully.",
+      message: Messages.action.create.success("Category"),
       data: newCategory,
     };
   } catch (error) {
     console.error(error);
     return {
       success: false,
-      message:
-        "Could not create category. Check your connection or contact support.",
+      message: Messages.action.create.error("Category"),
     };
   }
 }
@@ -93,13 +96,15 @@ export async function updateCategory({ id, oldName, newName, currentUser }) {
       description: `Category updated: ${oldName} to ${newName}`,
     });
 
-    return { success: true, message: "Category updated successfully." };
+    return {
+      success: true,
+      message: Messages.action.update.success("Category"),
+    };
   } catch (error) {
     console.error(error);
     return {
       success: false,
-      message:
-        "Could not update category. Check your connection or contact support.",
+      message: Messages.action.update.error("Category"),
     };
   }
 }
@@ -122,13 +127,15 @@ export async function deleteCategory(id, currentUser) {
       description: `Category deleted: ${category.name}`,
     });
 
-    return { success: true, message: "Category deleted successfully." };
+    return {
+      success: true,
+      message: Messages.action.delete.success("Category"),
+    };
   } catch (error) {
     console.error(error);
     return {
       success: false,
-      message:
-        "Could not delete category. Check your connection or contact support.",
+      message: Messages.action.delete.error("Category"),
     };
   }
 }

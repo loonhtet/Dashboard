@@ -7,7 +7,9 @@ export function middleware(request) {
   // If user is not logged in
   if (!currentUserCookie) {
     if (pathname !== "/login") {
-      return NextResponse.redirect(new URL("/login", request.url));
+      const loginUrl = new URL("/login", request.url);
+      loginUrl.searchParams.set("sessionExpired", "true"); // <-- flag for toast
+      return NextResponse.redirect(loginUrl);
     }
     return NextResponse.next();
   }

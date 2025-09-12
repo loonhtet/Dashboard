@@ -105,7 +105,7 @@ export const NewAdminForm = ({ currentUser }) => {
     <>
       <form
         onSubmit={handleAdminSubmit(onAdminSubmit)}
-        className="grid grid-cols-2 gap-4 space-y-4"
+        className="grid grid-cols-1 gap-4 space-y-4 md:grid-cols-2"
       >
         <InputBox
           label="Name"
@@ -126,7 +126,7 @@ export const NewAdminForm = ({ currentUser }) => {
             pattern: { value: /^\S+@\S+$/i, message: "Invalid email" },
           }}
         />
-        <div className="col-span-2">
+        <div className="md:col-span-2">
           <InputBox
             label="Password"
             name="password"
@@ -136,7 +136,7 @@ export const NewAdminForm = ({ currentUser }) => {
             validation={{ required: "Password is required" }}
           />
         </div>
-        <div className="col-span-2 ms-auto">
+        <div className="ms-auto md:col-span-2">
           <Button type="submit" disabled={isSending}>
             {isSending && <Loader2 className="animate-spin" />}
             Submit
