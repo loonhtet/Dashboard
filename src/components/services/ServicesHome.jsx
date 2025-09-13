@@ -123,7 +123,18 @@ const ServicesHome = ({ currentUser }) => {
                 <TableCell className="font-medium">{idx + 1}</TableCell>
                 <TableCell>{service.title}</TableCell>
                 <TableCell>{service.description || "N/A"}</TableCell>
-                <TableCell>{service.image_url || "N/A"} images</TableCell>
+                <TableCell>
+                  {service.image_url ? (
+                    <img
+                      src={service.image_url}
+                      alt={service.title}
+                      className="h-12 w-12 rounded-md object-cover"
+                    />
+                  ) : (
+                    "N/A"
+                  )}
+                </TableCell>
+
                 <TableCell>
                   {format(new Date(service.created_at), "dd MMM yyyy, hh:mm a")}
                 </TableCell>
@@ -131,7 +142,7 @@ const ServicesHome = ({ currentUser }) => {
                   {format(new Date(service.updated_at), "dd MMM yyyy, hh:mm a")}
                 </TableCell>
                 <TableCell className="space-x-2 text-right">
-                  <Link href={`/app/services/${service.slug}/update`}>
+                  <Link href={`/services/${service.id}/update-services`}>
                     <Button variant="secondary">Update</Button>
                   </Link>
 

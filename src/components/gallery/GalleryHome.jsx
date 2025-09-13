@@ -120,19 +120,29 @@ const GalleryHome = ({ currentUser }) => {
             {gallery.map((gallery, idx) => (
               <TableRow key={gallery.id}>
                 <TableCell className="font-medium">{idx + 1}</TableCell>
-                <TableCell>{gallery.image_url || "N/A"} images</TableCell>
+                <TableCell>
+                  {gallery.image_url ? (
+                    <img
+                      src={gallery.image_url}
+                      alt={gallery.title}
+                      className="h-12 w-12 rounded-md object-cover"
+                    />
+                  ) : (
+                    "N/A"
+                  )}
+                </TableCell>
+
                 <TableCell>{gallery.title || "N/A"}</TableCell>
                 <TableCell>{gallery.description || "N/A"}</TableCell>
-                <TableCell>{gallery.services}</TableCell>
+                <TableCell>{gallery.service?.title || "N/A"}</TableCell>
                 <TableCell>
                   {format(new Date(gallery.created_at), "dd MMM yyyy, hh:mm a")}
                 </TableCell>
                 <TableCell>
                   {format(new Date(gallery.updated_at), "dd MMM yyyy, hh:mm a")}
                 </TableCell>
-
                 <TableCell className="space-x-2 text-right">
-                  <Link href={`/app/gallery/${gallery.id}/update-gallery`}>
+                  <Link href={`/gallery/${gallery.id}/update-gallery`}>
                     <Button variant="secondary">Update</Button>
                   </Link>
 

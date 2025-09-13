@@ -1,17 +1,30 @@
 import { getCurrentUser } from "@/app/action";
-import UpdateGallery from "@/components/gallery/UpdateGallery";
+import { getAllServices, getGalleryById } from "./action";
 import WebLayout from "@/components/layouts/WebLayout";
-import { getGalleryById } from "./action";
+import UpdateGallery from "@/components/gallery/UpdateGallery";
 
 const Page = async ({ params }) => {
-  const { slug } = params; // no need for await
+  const { id } = await params;
 
   const currentUser = await getCurrentUser();
-  const gallery = await getGalleryById(slug);
+  const gallery = await getGalleryById(id);
+  const { success, data: services } = await getAllServices();
+
+  const formattedServices =
+    success && services
+      ? services.map((s) => ({
+          id: s.id,
+          name: s.title,
+        }))
+      : [];
 
   return (
     <WebLayout>
-      <UpdateGallery gallery={gallery?.data} currentUser={currentUser} />
+      <UpdateGallery
+        gallery={gallery?.data}
+        currentUser={currentUser}
+        services={formattedServices}
+      />
     </WebLayout>
   );
 };

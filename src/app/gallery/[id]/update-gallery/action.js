@@ -3,10 +3,14 @@
 import { prisma } from "@/lib/prisma";
 import { uploadToR2 } from "@/lib/r2";
 import { addAuditLog } from "@/app/action";
-import slugify from "slugify";
+import { Messages } from "@/lib/message";
 
 export async function getGalleryById(id) {
   try {
+    if (!id) {
+      return { success: false, message: "Gallery ID is required" };
+    }
+
     const gallery = await prisma.gallery.findUnique({
       where: { id },
     });
@@ -33,12 +37,28 @@ export async function updateGallery({
   try {
     let imageUrl = null;
 
-    // If a new file is uploaded, send to R2
     if (image && typeof image !== "string") {
-      const uploaded = await uploadToR2(image);
-      imageUrl = uploaded.url;
+      let uploadBody = image;
+
+      if (image instanceof Blob) {
+        const arrayBuffer = await image.arrayBuffer();
+        uploadBody = Buffer.from(arrayBuffer);
+      } else if (image?.pipe) {
+        uploadBody = await new Promise((resolve, reject) => {
+          const chunks = [];
+          image.on("data", (chunk) => chunks.push(chunk));
+          image.on("end", () => resolve(Buffer.concat(chunks)));
+          image.on("error", reject);
+        });
+      }
+
+      const bucket = process.env.R2_BUCKET_NAME;
+      const key = `gallery/${Date.now()}-${image.name || "upload"}`;
+      const uploaded = await uploadToR2(bucket, key, uploadBody);
+
+      imageUrl = uploaded.url || uploaded;
     } else {
-      imageUrl = image; // keep existing image string
+      imageUrl = image;
     }
 
     const updatedGallery = await prisma.gallery.update({
@@ -46,28 +66,30 @@ export async function updateGallery({
       data: {
         title,
         description,
-        serviceId,
         image_url: imageUrl,
-        slug: slugify(title, { lower: true, strict: true }),
+        service: serviceId ? { connect: { id: serviceId } } : undefined,
       },
     });
 
     await addAuditLog({
-      action: "UPDATE_GALLERY",
-      userId: currentUser?.id,
-      details: `Updated gallery: ${updatedGallery.title}`,
+      user_name: currentUser?.name || null,
+      user_email: currentUser?.email || null,
+      actionType: "UPDATE",
+      targetType: "gallery",
+      targetId: updatedGallery.id,
+      description: `Gallery updated: ${updatedGallery.title}`,
     });
 
     return {
       success: true,
-      message: "Gallery updated successfully!",
+      message: Messages.action.update.success("Gallery"),
       data: updatedGallery,
     };
   } catch (error) {
     console.error("Update gallery error:", error);
     return {
       success: false,
-      message: error.message || "Failed to update gallery",
+      message: Messages.action.update.error("Gallery"),
     };
   }
 }

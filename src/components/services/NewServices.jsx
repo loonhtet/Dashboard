@@ -25,21 +25,6 @@ const NewServices = ({ currentUser }) => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleImageUpload = useCallback(async (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      try {
-        const reader = new FileReader();
-        reader.onload = (e) => {
-          const base64 = e.target.result;
-        };
-        reader.readAsDataURL(file);
-      } catch (err) {
-        toast.error("Failed to upload image");
-      }
-    }
-  });
-
   const onSubmit = async (data) => {
     setIsSubmitting(true);
     console.log(data);
@@ -72,9 +57,6 @@ const NewServices = ({ currentUser }) => {
       <header className="mb-6 flex flex-col justify-between gap-6 lg:flex-row lg:items-center">
         <h1 className="text-2xl font-bold">New Service</h1>
         <div className="space-x-2">
-          <Button variant="secondary" disabled={isSubmitting}>
-            Draft
-          </Button>
           <Button
             variant="default"
             onClick={handleSubmit(onSubmit)}

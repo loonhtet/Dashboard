@@ -20,5 +20,5 @@ export async function uploadToR2(bucket, key, file) {
   );
 
   // return `${process.env.CLOUDFLARE_R2_PUBLIC_URL}/${key}`;
-  return `localhost:300/${key}`;
+  return `http://localhost:3000/${key}`;  // This is correct, no change needed
 }

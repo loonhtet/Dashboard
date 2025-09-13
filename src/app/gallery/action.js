@@ -15,7 +15,7 @@ export async function getAllGallery(search = "") {
           }
         : {},
       include: {
-        service: true, // include related service info
+        service: true,
       },
       orderBy: {
         created_at: "desc",

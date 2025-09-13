@@ -15,6 +15,7 @@ const UpdateGallery = ({ gallery, currentUser, services = [] }) => {
     handleSubmit,
     setValue,
     reset,
+    watch,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -26,25 +27,24 @@ const UpdateGallery = ({ gallery, currentUser, services = [] }) => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const imageValue = watch("image");
+  const serviceValue = watch("service");
 
-  // Prefill form with gallery data
   useEffect(() => {
     if (gallery) {
       reset({
         title: gallery.title || "",
         service: gallery.serviceId || "",
         description: gallery.description || "",
-        image: gallery.image || null,
+        image: gallery.image_url || null,
       });
+
+      setValue("image", gallery.image_url || null);
+      setValue("service", gallery.serviceId || "");
     }
-  }, [gallery, reset]);
+  }, [gallery, reset, setValue]);
 
   const onSubmit = async (data) => {
-    if (!data.image) {
-      toast.error("Please upload an image.");
-      return;
-    }
-
     setIsSubmitting(true);
     try {
       const payload = {
@@ -60,7 +60,16 @@ const UpdateGallery = ({ gallery, currentUser, services = [] }) => {
 
       if (res.success) {
         toast.success(res.message);
-        reset(payload); // reset form with updated values
+
+        reset({
+          title: "",
+          service: "",
+          description: "",
+          image: null,
+        });
+
+        setValue("image", null);
+        setValue("service", "");
       } else {
         toast.error(res.message);
       }
@@ -89,13 +98,14 @@ const UpdateGallery = ({ gallery, currentUser, services = [] }) => {
       <section className="grid grid-cols-1 gap-y-6 pb-12 lg:gap-x-6">
         <div className="w-full">
           <BlogDropzone
+            key={imageValue || "empty"} 
             onFileSelect={(file) =>
               setValue("image", file, {
                 shouldValidate: true,
                 shouldDirty: true,
               })
             }
-            defaultFile={gallery?.image}
+            defaultFile={imageValue ?? null}
           />
 
           <form
@@ -114,6 +124,7 @@ const UpdateGallery = ({ gallery, currentUser, services = [] }) => {
             />
 
             <Combobox
+              key={serviceValue || "empty"}
               label="Service"
               name="service"
               placeholder="Select a service"
@@ -122,9 +133,8 @@ const UpdateGallery = ({ gallery, currentUser, services = [] }) => {
               errors={errors}
               validation={{ required: "Service is required" }}
               setValue={setValue}
-              defaultValue={gallery?.serviceId}
+              defaultValue={serviceValue ?? ""}
             />
-
             <InputBox
               label="Description"
               name="description"
